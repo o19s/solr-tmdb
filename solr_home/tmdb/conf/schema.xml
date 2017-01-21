@@ -369,9 +369,28 @@
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
         <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
         <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.PatternReplaceFilterFactory" pattern="(_)" replacement=" " replace="all"/>
       </analyzer>
     </fieldType>
-
+    
+    <fieldType name="text_title_phrases" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.SynonymFilterFactory" synonyms="title_phrases.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.PatternReplaceFilterFactory" pattern="(_)" replacement=" " replace="all"/>
+      </analyzer>
+    </fieldType>
+    
+    <fieldType name="text_castname_phrases" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.SynonymFilterFactory" synonyms="cast_phrases.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.PatternReplaceFilterFactory" pattern="(_)" replacement=" " replace="all"/>
+      </analyzer>
+    </fieldType>
+    
     <!-- A text field with defaults appropriate for English: it
          tokenizes with StandardTokenizer, removes English stop words
          (lang/stopwords_en.txt), down cases, protects words from protwords.txt, and
