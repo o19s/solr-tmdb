@@ -1430,9 +1430,7 @@
   <queryResponseWriter name="xslt" class="solr.XSLTResponseWriter">
     <int name="xsltCacheLifetimeSeconds">5</int>
   </queryResponseWriter>
-  
-  <queryParser name="match" class="com.o19s.solr.search.MatchQParserPlugin">
-  </queryParser>
+
 
   <!-- Query Parsers
 
