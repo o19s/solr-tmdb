@@ -19,4 +19,4 @@ In your browser, navigate to "http://localhost:8983/solr/" to confirm Solr is ru
 
 # Confirm Solr has TMDB movies
 
-Navigate to [http://localhost:8983/solr/tmdb/select?q=title:"lego movie"](http://localhost:8983/solr/tmdb/select?q=title:"lego movie") and confirm you get results.
+Navigate [here](http://localhost:8983/solr/tmdb/select?q=title:lego) and confirm you get results.
