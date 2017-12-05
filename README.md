@@ -9,3 +9,14 @@ Solr Index for the [The Movie Database](http://themoviedb.com).
 ./bin/solr start -f -s /path/to/solr-tmdb/solr_home/
 ```
 
+In your browser, navigate to "http://localhost:8983/solr/" to confirm Solr is running
+
+# Index TMDB movies
+
+1. Download [tmdb.json](http://es-learn-to-rank.labs.o19s.com/tmdb.json)
+2. Install [Python 3.6](https://www.python.org/downloads/) and the [pysolr library](https://github.com/django-haystack/pysolr) library
+3. Run `python indexTmdb.py` to index movies
+
+# Confirm Solr has TMDB movies
+
+Navigate to [http://localhost:8983/solr/tmdb/select?q=title:"lego movie"](http://localhost:8983/solr/tmdb/select?q=title:"lego movie") and confirm you get results.
