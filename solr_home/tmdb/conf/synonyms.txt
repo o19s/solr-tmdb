@@ -12,18 +12,21 @@
 
 #-----------------------------------------------------------------------
 #some test synonym mappings unlikely to appear in real input text
-aaafoo => aaabar
-bbbfoo => bbbfoo bbbbar
-cccfoo => cccbar cccbaz
-fooaaa,baraaa,bazaaa
 
-# Some synonym groups specific to this example
-GB,gib,gigabyte,gigabytes
-MB,mib,megabyte,megabytes
-Television, Televisions, TV, TVs
-#notice we use "gib" instead of "GiB" so any WordDelimiterFilter coming
-#after us won't split it into two words.
+# Demonstrating low precision synonyms
+#wife,bride
+#wife,spouse
+#toons,tunes,cartoon
 
-# Synonym mappings can be used for spelling correction too
-pixima => pixma
+# Demonstrating => syntax
+#wife => wife, bride
+#spouse => spouse, husband, wife, partner
+#tunes => cartoons, toons, songs
+#cartoon  => toons, tunes
 
+# Demonstrating multi phrase
+looney tunes, cartoons
+science fiction, sci fi, sci-fi, scifi
+
+#Doug Junk
+scienc fiction, scifi
