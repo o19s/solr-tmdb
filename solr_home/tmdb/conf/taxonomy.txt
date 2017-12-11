@@ -1,0 +1,4 @@
+# Capture how the *user* structures information
+looneytunes, looney tunes => looney_tunes, cartoons
+wife => wife, spouse
+bride => bride, spouse

@@ -1,0 +1,6 @@
+# Idioms is a synonyms file that captures idiomatic phrases as single units
+
+# LHS is all representations encountered in query or document
+looneytunes, looney tunes => looney_tunes
+sci fi, scifi, science fiction => science_fiction
+stallone, sylvester stallone => sylvester_stallone
