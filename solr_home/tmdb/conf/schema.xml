@@ -450,7 +450,7 @@
     </fieldType>
 
 
-    <field type="text_doug" name="text" omitNorms="true"/>
+    <field type="text_doug" name="text"/>
     <fieldType name="text_doug" class="solr.TextField">
       <analyzer type="index">
         <tokenizer class="solr.StandardTokenizerFactory"/>
@@ -464,7 +464,7 @@
 
 
     <copyField source="text" dest="text_people"/>
-    <field type="name_text_better" name="text_people" omitNorms="true"/>
+    <field type="name_text_better" name="text_people"/>
     <fieldType name="name_text_better" class="solr.TextField">
       <analyzer type="index">
         <tokenizer class="solr.StandardTokenizerFactory"/>
