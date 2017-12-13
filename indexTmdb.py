@@ -9,13 +9,21 @@ def tmdbMovies():
     for movieId, tmdbMovie in tmdbMovies.items():
         print("Indexing %s" % movieId)
         try:
+            releaseDate = None
+            if 'release_date' in tmdbMovie and len(tmdbMovie['release_date']) > 0:
+                releaseDate = tmdbMovie['release_date'] + 'T00:00:00Z'
+
             yield {'id': movieId,
                    'title': tmdbMovie['title'],
                    'overview': tmdbMovie['overview'],
                    'tagline': tmdbMovie['tagline'],
                    'directors': [director['name'] for director in tmdbMovie['directors']],
                    'cast': [castMember['name'] for castMember in tmdbMovie['cast']],
-                   'genres': [genre['name'] for genre in tmdbMovie['genres']]}
+                   'genres': [genre['name'] for genre in tmdbMovie['genres']],
+                   'release_date': releaseDate,
+                   'vote_average': tmdbMovie['vote_average'] if 'vote_average' in tmdbMovie else None,
+                   'vote_count': tmdbMovie['vote_count'] if 'vote_count' in tmdbMovie else None,
+                   }
         except KeyError as k: # Ignore any movies missing these attributes
             print(k)
             continue
