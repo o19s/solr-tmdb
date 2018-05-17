@@ -25,8 +25,5 @@ tunes => cartoons, toons, songs
 cartoon  => toons, tunes
 
 # Demonstrating multi phrase
-looney tunes, cartoons
-science fiction, sci fi, sci-fi, scifi
-
-#Doug Junk
-#scienc fiction, scifi
+#looney tunes, cartoons
+#science fiction, sci fi, sci-fi, scifi

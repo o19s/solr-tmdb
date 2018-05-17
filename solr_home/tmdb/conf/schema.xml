@@ -125,8 +125,8 @@
     <field name="directors" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="genres" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="release_date" type="date" indexed="true" stored="true" />
-    <field name="vote_average" type="float" indexed="true" stored="true" multiValued="true" />
-    <field name="vote_count" type="int" indexed="true" stored="true" multiValued="true" />
+    <field name="vote_average" docValues="false" type="float" indexed="true" stored="true" multiValued="false" />
+    <field name="vote_count" type="int" indexed="true" stored="true" multiValued="true"/>
 
 
 
@@ -159,6 +159,28 @@
     <copyField source="cast" dest="cast_taxonomy"/>
     <copyField source="directors" dest="directors_taxonomy"/>
     <copyField source="genres" dest="genres_taxonomy"/>
+
+    <copyField source="overview" dest="text_all_taxonomy"/>
+    <copyField source="title" dest="text_all_taxonomy"/>
+    <copyField source="tagline" dest="text_all_taxonomy"/>
+    <copyField source="cast" dest="text_all_taxonomy"/>
+    <copyField source="directors" dest="text_all_taxonomy"/>
+    <copyField source="genres" dest="text_all_taxonomy"/>
+
+    <copyField source="overview" dest="overview_ws_syn"/>
+    <copyField source="title" dest="title_ws_syn"/>
+    <copyField source="tagline" dest="tagline_ws_syn"/>
+    <copyField source="cast" dest="cast_ws_syn"/>
+    <copyField source="directors" dest="directors_ws_syn"/>
+    <copyField source="genres" dest="genres_ws_syn"/>
+
+    <copyField source="overview" dest="overview_auto_phrase_syn"/>
+    <copyField source="title" dest="title_auto_phrase_syn"/>
+    <copyField source="tagline" dest="tagline_auto_phrase_syn"/>
+    <copyField source="cast" dest="cast_auto_phrase_syn"/>
+    <copyField source="directors" dest="directors_auto_phrase_syn"/>
+    <copyField source="genres" dest="genres_auto_phrase_syn"/>
+
 
     <copyField source="cast" dest="text_people"/>
     <copyField source="directors" dest="text_people"/>
@@ -335,6 +357,17 @@
 	       removes stop words from case-insensitive "stopwords.txt"
 	       (empty by default), and down cases.  At query time only, it
 	       also applies synonyms.
+
+
+        Sausagization:
+
+         posn
+         1      2            3         4         5
+         the    science(2)   fi (2)    fiction   movie
+                sci(1)    
+                sci-fi(3)
+
+
 	  -->
     <fieldType name="text_general" class="solr.TextField" autoGeneratePhraseQueries="false" 
       enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
@@ -353,17 +386,72 @@
         <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" />
       </analyzer>
     </fieldType>
-    
-    <dynamicField name="*_idioms" type="text_general_idiomatic"  indexed="true"  stored="true"/>
-    
-    <fieldType name="text_general_idiomatic" class="solr.TextField" autoGeneratePhraseQueries="true" 
-      enableGraphQueries="true" positionIncrementGap="100" multiValued="true">
+
+    <dynamicField name="*_ws_syn" type="text_general_ws_syn"  indexed="true"  stored="true"/> 
+    <fieldType name="text_general_ws_syn" class="solr.TextField" autoGeneratePhraseQueries="false" 
+      enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
       <analyzer type="index">
         <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
         <!-- in this example, we will only use synonyms at query time
         <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
         -->
         <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" />
+      </analyzer>
+    </fieldType>
+
+    <dynamicField name="*_auto_phrase_syn" type="text_general_auto_phrase_syn"  indexed="true"  stored="true"/> 
+    <fieldType name="text_general_auto_phrase_syn" class="solr.TextField" autoGeneratePhraseQueries="true" 
+      enableGraphQueries="true" positionIncrementGap="100" multiValued="true">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
+        <!-- in this example, we will only use synonyms at query time
+        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+        -->
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" />
+      </analyzer>
+    </fieldType>
+
+    <copyField source="text" dest="text_preamble"/>
+    <field type="text_type_preamble"  name="text_preamble" multiValued="true"/>
+    <fieldType name="text_type_preamble" class="solr.TextField">
+     <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+
+        <filter class="solr.LimitTokenCountFilterFactory" maxTokenCount="6"
+                consumeAllTokens="false" />
+
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+
+      </analyzer>
+    </fieldType>
+    
+    <dynamicField name="*_idioms" type="text_general_idiomatic"  indexed="true"  stored="true"/> 
+    <fieldType name="text_general_idiomatic" class="solr.TextField" autoGeneratePhraseQueries="true" 
+      enableGraphQueries="true" positionIncrementGap="100" multiValued="true">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+
+        <!-- turn idiomatic phrases like looney tunes into a single 
+             term at index time-->
         <filter class="solr.SynonymGraphFilterFactory" synonyms="idioms.txt" />
         <filter class="solr.FlattenGraphFilterFactory" />
 
@@ -371,6 +459,9 @@
       <analyzer type="query">
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
+
+        <!-- turn idiomatic phrases like looney tunes into a single 
+             term at query time-->
         <filter class="solr.SynonymGraphFilterFactory" synonyms="idioms.txt" />
       </analyzer>
     </fieldType>
@@ -431,7 +522,6 @@
         <filter class="solr.PorterStemFilterFactory"/>
       </analyzer>
     </fieldType>
-
 
     <fieldType name="my_text_field" class="solr.TextField">
       <analyzer type="index">
