@@ -13,7 +13,7 @@
 #-----------------------------------------------------------------------
 #some test synonym mappings unlikely to appear in real input text
 
-# Demonstrating low precision synonyms
+# Demonstrating bidirectional synonyms
 #wife,bride
 #wife,spouse
 #toons,tunes,cartoon

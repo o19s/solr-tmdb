@@ -138,13 +138,18 @@
     <copyField source="directors" dest="text_all"/>
     <copyField source="genres" dest="text_all"/>
 
-    <!-- an english analyzed versions of field from our fields -->
-    <copyField source="overview" dest="overview_en"/>
-    <copyField source="title" dest="title_en"/>
-    <copyField source="tagline" dest="tagline_en"/>
-    <copyField source="cast" dest="cast_en"/>
-    <copyField source="directors" dest="directors_en"/>
-    <copyField source="genres" dest="genres_en"/>
+    <!--  synonym strategies for synonym demos -->
+    <copyField source="title" dest="title_bidirect_syn"/>
+    <copyField source="overview" dest="overview_bidirect_syn"/>
+    <copyField source="tagline" dest="tagline_bidirect_syn"/>
+
+    <copyField source="title" dest="title_directed_syn"/>
+    <copyField source="overview" dest="overview_directed_syn"/>
+    <copyField source="tagline" dest="tagline_directed_syn"/>
+
+    <copyField source="title" dest="title_multiterm_syn"/>
+    <copyField source="overview" dest="overview_multiterm_syn"/>
+    <copyField source="tagline" dest="tagline_multiterm_syn"/>
 
     <copyField source="overview" dest="overview_idioms"/>
     <copyField source="title" dest="title_idioms"/>
@@ -166,6 +171,16 @@
     <copyField source="cast" dest="text_all_taxonomy"/>
     <copyField source="directors" dest="text_all_taxonomy"/>
     <copyField source="genres" dest="text_all_taxonomy"/>
+
+    <!-- an english analyzed versions of field from our fields -->
+    <copyField source="overview" dest="overview_en"/>
+    <copyField source="title" dest="title_en"/>
+    <copyField source="tagline" dest="tagline_en"/>
+    <copyField source="cast" dest="cast_en"/>
+    <copyField source="directors" dest="directors_en"/>
+    <copyField source="genres" dest="genres_en"/>
+
+  
 
     <copyField source="overview" dest="overview_ws_syn"/>
     <copyField source="title" dest="title_ws_syn"/>
@@ -387,6 +402,63 @@
       </analyzer>
     </fieldType>
 
+    <dynamicField name="*_bidirect_syn" type="text_general_bidirect_syn"  indexed="true"  stored="true"/> 
+    <fieldType name="text_general_bidirect_syn" class="solr.TextField" autoGeneratePhraseQueries="false" 
+      enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
+        <!-- in this example, we will only use synonyms at query time
+        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+        -->
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_bidirect.txt" />
+      </analyzer>
+    </fieldType>
+
+    <dynamicField name="*_directed_syn" type="text_general_directed_syn"  indexed="true"  stored="true"/> 
+    <fieldType name="text_general_directed_syn" class="solr.TextField" autoGeneratePhraseQueries="false" 
+      enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
+        <!-- in this example, we will only use synonyms at query time
+        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+        -->
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_directed.txt" />
+      </analyzer>
+    </fieldType>
+
+    <dynamicField name="*_multiterm_syn" type="text_general_multiterm_syn"  indexed="true"  stored="true"/> 
+    <fieldType name="text_general_multiterm_syn" class="solr.TextField" autoGeneratePhraseQueries="false" 
+      enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
+        <!-- in this example, we will only use synonyms at query time
+        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+        -->
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_multiterm.txt" />
+      </analyzer>
+    </fieldType>
+
     <dynamicField name="*_ws_syn" type="text_general_ws_syn"  indexed="true"  stored="true"/> 
     <fieldType name="text_general_ws_syn" class="solr.TextField" autoGeneratePhraseQueries="false" 
       enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
@@ -421,7 +493,7 @@
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
         <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" />
+        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_multiterm.txt" />
       </analyzer>
     </fieldType>
 
@@ -452,7 +524,7 @@
 
         <!-- turn idiomatic phrases like looney tunes into a single 
              term at index time-->
-        <filter class="solr.SynonymGraphFilterFactory" synonyms="idioms.txt" />
+        <filter class="solr.SynonymGraphFilterFactory" expand="false" synonyms="idioms.txt" />
         <filter class="solr.FlattenGraphFilterFactory" />
 
       </analyzer>
@@ -462,7 +534,7 @@
 
         <!-- turn idiomatic phrases like looney tunes into a single 
              term at query time-->
-        <filter class="solr.SynonymGraphFilterFactory" synonyms="idioms.txt" />
+        <filter class="solr.SynonymGraphFilterFactory" expand="false" synonyms="idioms.txt" />
       </analyzer>
     </fieldType>
     
