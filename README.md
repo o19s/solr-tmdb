@@ -2,7 +2,7 @@ Solr Index for the [The Movie Database](http://themoviedb.com).
 
 # Run Solr index
 
-1. Download and unpack [Solr 6.6.2](http://archive.apache.org/dist/lucene/solr/6.6.2/solr-6.6.2.zip)
+1. Download and unpack [Solr 7.4.0](http://archive.apache.org/dist/lucene/solr/7.4.0/solr-7.4.0.zip)
 2. Run Solr pointing at the Solr Home directory included here
 
 ```

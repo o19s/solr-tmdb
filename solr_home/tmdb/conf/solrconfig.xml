@@ -72,6 +72,9 @@
        The examples below can be used to load some solr-contribs along 
        with their external dependencies.
     -->
+
+  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-ltr-\d.*\.jar" />
+
   <lib dir="${solr.install.dir:../../../..}/contrib/extraction/lib" regex=".*\.jar" />
   <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-cell-\d.*\.jar" />
 
@@ -417,6 +420,13 @@
          when the hit ratio of the cache is high (> 75%), and may be
          faster under other scenarios on multi-cpu systems.
     -->
+
+    <cache name="QUERY_DOC_FV"
+       class="solr.search.LRUCache"
+       size="4096"
+       initialSize="2048"
+       autowarmCount="4096"
+       regenerator="solr.search.NoOpRegenerator" />
 
     <!-- Filter Cache
 
@@ -1019,9 +1029,7 @@
       <int name="minQueryLength">4</int>
       <!-- maximum threshold of documents a query term can appear to be considered for correction -->
       <float name="maxQueryFrequency">0.01</float>
-      <!-- uncomment this to require suggestions to occur in 1% of the documents
-        <float name="thresholdTokenFrequency">.01</float>
-      -->
+      <float name="thresholdTokenFrequency">.01</float>
     </lst>
 
     <!-- a spellchecker that can break or combine words.  See "/spell" handler below for usage -->
@@ -1452,6 +1460,9 @@
        used in either the "defType" param for the QueryComponent (used
        by SearchHandler) or in LocalParams
     -->
+
+<queryParser name="ltr" class="org.apache.solr.ltr.search.LTRQParserPlugin"/>
+
   <!-- example of registering a query parser -->
   <!--
      <queryParser name="myparser" class="com.mycompany.MyQParserPlugin"/>
@@ -1474,6 +1485,10 @@
   <!-- Document Transformers
        http://wiki.apache.org/solr/DocTransformers
     -->
+
+<transformer name="features" class="org.apache.solr.ltr.response.transform.LTRFeatureLoggerTransformerFactory">
+  <str name="fvCacheName">QUERY_DOC_FV</str>
+</transformer>
   <!--
      Could be something like:
      <transformer name="db" class="com.mycompany.LoadFromDatabaseTransformer" >

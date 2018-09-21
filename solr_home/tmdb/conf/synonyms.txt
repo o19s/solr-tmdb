@@ -19,10 +19,10 @@
 #toons,tunes,cartoon
 
 # Demonstrating => syntax
-wife => wife, bride
-spouse => spouse, husband, wife, partner
-tunes => cartoons, toons, songs
-cartoon  => toons, tunes
+# wife => wife, bride
+# spouse => spouse, husband, wife, partner
+# tunes => cartoons, toons, songs
+# cartoon  => toons, tunes
 
 # Demonstrating multi phrase
 #looney tunes, cartoons
