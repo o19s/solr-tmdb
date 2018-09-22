@@ -99,14 +99,36 @@ def rankLibMartToSolr(ensemble_xml_string, modelName, featureIndex2featureName):
     "features" : features,
     "params" : { "trees" : trees }
   }
-
-
-
   return treesModel
+
+def getModelType(modelTxt):
+    # 0, MART
+    # 1, RankNet
+    # 2, RankBoost
+    # 3, AdaRank
+    # 4, coord Ascent
+    # 6, LambdaMART
+    # 7, ListNET
+    # 8, Random Forests
+    # 9, Linear Regression
+    modelHeader = modelTxt.split('\n')[0]
+    modelName = modelHeader[2:].strip()
+    if modelName == "MART":
+        return 0
+    elif modelName == "RankNet":
+        return 1
+    elif modelName == "RankBoost":
+        return 2
+    elif modelName == "AdaRank":
+        return 3
+    if modelName == "LambdaMART":
+        return 6
+    print(modelName)
 
 if __name__ == "__main__":
     with open('model.txt') as f:
         modelTxt = f.read()
+        getModelType(modelTxt)
         nameToOrd = {_ord: name for (_ord, name) in  featureOrdToName()}
         treesModel = rankLibMartToSolr(modelTxt, modelName='doug', featureIndex2featureName=nameToOrd)
     outFile = 'model_solr.json'

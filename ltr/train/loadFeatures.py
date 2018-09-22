@@ -1,16 +1,14 @@
 import json
-from solr import SolrColl
 
 def getFeature(ftrId):
     return json.loads(open('%s.json' % ftrId).read())
 
 
-def featureNameToOrd():
+def featureOrdToName():
     features = []
     for ftrId, feature in eachFeature():
         features.append((ftrId, feature['name']))
     return features
-
 
 def eachFeature():
     try:
@@ -25,7 +23,8 @@ def eachFeature():
 
 
 if __name__ == "__main__":
+    from solr import SolrColl
     solrHost='http://localhost:8983'
     solrColl = SolrColl('http://localhost:8983/solr/tmdb/')
     solrColl.reloadFeatures(features=eachFeature())
-    print(featureNameToOrd())
+    print(featureOrdToName())

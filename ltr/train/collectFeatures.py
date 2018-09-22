@@ -1,7 +1,7 @@
 import json
 from solr import SolrColl
 import atexit
-from loadFeatures import featureNameToOrd
+from loadFeatures import featureOrdToName
 
 def featureCsvToList(features, ftrMapping):
 
@@ -20,7 +20,7 @@ def featureCsvToList(features, ftrMapping):
 def logFeatures(solrColl, judgmentsByQid):
     idx = 0
 
-    ftrMapping = featureNameToOrd()
+    ftrMapping = featureOrdToName()
 
     featuresPerDoc = {}
 

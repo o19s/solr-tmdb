@@ -1,5 +1,5 @@
 import os
-from collectFeatures import logFeatures, buildFeaturesJudgmentsFile
+from collectFeatures import logFeatures, buildFeaturesJudgmentsFile, featureOrdToName
 from loadFeatures import eachFeature
 
 
@@ -70,9 +70,6 @@ def saveModel(esHost, scriptName, featureSet, modelFname):
             print(resp.text)
 
 
-
-
-
 if __name__ == "__main__":
 
     HUMAN_JUDGMENTS = 'movie_judgments.txt'
@@ -113,8 +110,10 @@ if __name__ == "__main__":
     buildFeaturesJudgmentsFile(trainJudgments, filename=TRAIN_JUDGMENTS)
     buildFeaturesJudgmentsFile(testJudgments, filename=TEST_JUDGMENTS)
 
+    ftrOrdToName = {_ord: name for (_ord, name) in  featureOrdToName()}
+
     # Train each ranklib model type
-    for modelType in [6,8]:
+    for modelType in [6]:
         # 0, MART
         # 1, RankNet
         # 2, RankBoost
@@ -126,4 +125,6 @@ if __name__ == "__main__":
         # 9, Linear Regression
         print("*** Training %s " % modelType)
         trainModel(trainingData=TRAIN_JUDGMENTS, testData=TEST_JUDGMENTS, modelOutput='model.txt', whichModel=modelType)
-        # saveModel(esHost=esUrl, scriptName="test_%s" % modelType, featureSet='movie_features', modelFname='model.txt')
+        with open('model.txt') as f:
+            rankLibModel = f.read()
+            solrColl.saveRankLibModel(modelName="doug_%s" % modelType, modelTxt=rankLibModel, ftrOrdToName=ftrOrdToName)
