@@ -27,6 +27,7 @@ Start a supported version of Solr and follow the [instructions to setup Solr LTR
 This script (in the parent directory) will index into the tmdb collection. 
 
 ```
+cd ../..
 python indexTmdb.py
 ```
 
@@ -37,6 +38,7 @@ python indexTmdb.py
 If you're actually going to build a learning to rank system, read past this section. But to sum up, the full Movie demo can be run by
 
 ```
+cd ltr/train/
 python train.py
 ```
 
