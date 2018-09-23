@@ -3,6 +3,7 @@ import json
 from ranklibToSolr import rankLibMartToSolr
 
 class SolrColl:
+    """ Solr helpers around a collection... """
     def __init__(self, solrColl='http://localhost:8983/solr/tmdb/', verbose=True):
         self.solrColl = solrColl
         if self.solrColl[-1] != '/':
