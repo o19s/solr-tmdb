@@ -22,7 +22,7 @@ python prepare.py
 
 Start a supported version of Solr and follow the [instructions to setup Solr LTR](https://lucene.apache.org/solr/guide/7_4/learning-to-rank.html), or use the config provided in this repo.
 
-## Index to Elasticsearch
+## Index to Solr
 
 This script (in the parent directory) will index into the tmdb collection. 
 
