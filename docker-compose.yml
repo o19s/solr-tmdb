@@ -1,0 +1,33 @@
+# Docker compose file for the application.
+
+version: '3'
+services:
+  #zookeeper:
+  #  image: jplock/zookeeper
+  #  ports:
+  #    - "2181:2181"
+
+  solr:
+    #image: solr:7.4.0
+    build:
+      context: .
+      dockerfile: ./deploy/solr/Dockerfile
+    ports:
+      - "8983:8983"
+    #links:
+    #  - zookeeper:zookeeper
+    #command: /opt/solr/bin/solr start -f -z zookeeper:2181
+    command: /opt/solr/bin/solr start -f -s /solr_home/
+
+  #setup:
+  #  build: ../solr-cores/
+  #  depends_on:
+  #    - solr
+  setup:
+    build:
+      context: .
+      dockerfile: ./deploy/setup/Dockerfile
+    links:
+      - solr
+    depends_on:
+     - solr

@@ -1,11 +1,11 @@
 import pysolr
 
 
-def indexableMovies():
+def indexableMovies(tmdbJson):
     """ Generates TMDB movies, similar to how ES Bulk indexing
         uses a generator to generate bulk index/update actions """
     from tmdbMovies import tmdbMovies
-    for movieId, tmdbMovie in tmdbMovies():
+    for movieId, tmdbMovie in tmdbMovies(tmdbJson):
         print("Indexing %s" % movieId)
         try:
             releaseDate = None
@@ -29,5 +29,11 @@ def indexableMovies():
 
 
 if __name__ == "__main__":
-    solr = pysolr.Solr('http://localhost:8983/solr/tmdb', timeout=100)
-    solr.add(indexableMovies())
+    from sys import argv
+    tmdbJson = 'tmdb.json'
+    solrUrl = 'http://localhost:8983/solr/tmdb'
+    if len(argv) > 1:
+        tmdbJson = argv[1]
+        solrUrl = argv[2]
+    solr = pysolr.Solr(solrUrl, timeout=100)
+    solr.add(indexableMovies(tmdbJson))
