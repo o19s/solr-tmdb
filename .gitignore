@@ -3,3 +3,4 @@ venv
 tmdb.json
 data/
 lib/
+.DS_Store
