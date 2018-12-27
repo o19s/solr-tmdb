@@ -129,10 +129,10 @@
     <field name="vote_count" type="int" indexed="true" stored="true" multiValued="false"/>
 
     <!-- Entity Recognition Fields for NLP Training-->
-    <field name="location" type="location" indexed="true" stored="true" />
-    <field name="location_city" type="text_location" indexed="true" stored="true" />
-    <field name="location_state" type="text_location" indexed="true" stored="true" />
-    <field name="location_country" type="text_location" indexed="true" stored="true" />
+    <field name="location" type="location" indexed="true" stored="true" multiValued="true" />
+    <field name="location_city" type="text_location" indexed="true" stored="true" multiValued="true" />
+    <field name="location_state" type="text_location" indexed="true" stored="true" multiValued="true" />
+    <field name="location_country" type="text_location" indexed="true" stored="true" multiValued="true" />
 
 
     <!-- an "all" field from our fields -->
@@ -745,14 +745,16 @@
 
     <!-- Entity Recognition Field Types for NLP Training -->
     <fieldType name="location" class="solr.LatLonPointSpatialField" docValues="true" />
-    <fieldType name="text_location" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+    <fieldType name="text_location" class="solr.TextField" positionIncrementGap="100">
       <analyzer type="index">
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.ASCIIFoldingFilterFactory"/>
       </analyzer>
       <analyzer type="query">
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.ASCIIFoldingFilterFactory"/>
       </analyzer>
     </fieldType>
 
