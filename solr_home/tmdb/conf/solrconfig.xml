@@ -73,6 +73,10 @@
        with their external dependencies.
     -->
 
+  <!-- for plugin training 
+  <lib dir="/Users/doug/ws/lucene-query-example/target/" />-->
+
+
   <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-ltr-\d.*\.jar" />
 
   <lib dir="${solr.install.dir:../../../..}/contrib/extraction/lib" regex=".*\.jar" />
@@ -1460,6 +1464,8 @@
        used in either the "defType" param for the QueryComponent (used
        by SearchHandler) or in LocalParams
     -->
+
+<!--<queryParser name="backwards" class="com.o19s.BackwardsQParserPlugin"/>-->
 
 <queryParser name="ltr" class="org.apache.solr.ltr.search.LTRQParserPlugin"/>
 

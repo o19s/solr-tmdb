@@ -126,8 +126,9 @@
     <field name="genres" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="release_date" type="date" indexed="true" stored="true" />
     <field name="vote_average" docValues="false" type="float" indexed="true" stored="true" multiValued="false" />
-    <field name="vote_count" type="int" indexed="true" stored="true" multiValued="false"/>
+    <field name="vote_count" type="int" docValues="false" indexed="true" stored="true" multiValued="false"/>
 
+    <field name="Body" type="text_en" indexed="true" stored="true" multiValued="true" />
 
 
     <!-- an "all" field from our fields -->
@@ -210,6 +211,8 @@
     <copyField source="cast" dest="text_people"/>
     <copyField source="directors" dest="text_people"/>
 
+    <copyField source="cast" dest="text_people_notf"/>
+    <copyField source="directors" dest="text_people_notf"/>
 
     <field name="_version_" type="long" indexed="true" stored="false"/>
     <field name="_root_" type="string" indexed="true" stored="false" docValues="false" />
@@ -685,7 +688,6 @@
       </analyzer>
     </fieldType>
 
-
     <field type="text_doug" name="text"/>
     <fieldType name="text_doug" class="solr.TextField">
       <analyzer type="index">
@@ -697,20 +699,30 @@
       </analyzer>
     </fieldType>
 
-
-
-    <copyField source="text" dest="text_people"/>
     <field type="name_text_better" name="text_people" multiValued="true"/>
     <fieldType name="name_text_better" class="solr.TextField" positionIncrementGap="100" multiValued="true">
       <analyzer type="index">
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
         <filter class="solr.EnglishPossessiveFilterFactory"/>
-        <filter class="solr.SynonymFilterFactory" 
-                synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
         <filter class="solr.EnglishMinimalStemFilterFactory"/>
       </analyzer>
     </fieldType>
+
+    <field type="name_text_notf" name="text_people_notf" multiValued="true"/>
+    <fieldType name="name_text_notf" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.EnglishPossessiveFilterFactory"/>
+        <filter class="solr.EnglishMinimalStemFilterFactory"/>
+      </analyzer>
+      <similarity class="solr.BM25SimilarityFactory"> 
+        <str name="k1">0.0</str> 
+        <str name="b">1.0</str> 
+      </similarity>
+    </fieldType>
+
 
     <field type="name_text_even_better" omitNorms="true" name="text_people_even_better" multiValued="true"/>
     <fieldType name="name_text_even_better" class="solr.TextField" positionIncrementGap="100" multiValued="true">
