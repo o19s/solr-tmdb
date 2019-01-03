@@ -133,6 +133,8 @@
     <field name="location_city" type="text_location" indexed="true" stored="true" multiValued="true" />
     <field name="location_state" type="text_location" indexed="true" stored="true" multiValued="true" />
     <field name="location_country" type="text_location" indexed="true" stored="true" multiValued="true" />
+    <field name="location_rpt" type="location_rpt" indexed="true" stored="true" multiValued="true" />
+    <copyField source="location" dest="location_rpt"/>
 
 
     <!-- an "all" field from our fields -->
@@ -757,6 +759,10 @@
         <filter class="solr.ASCIIFoldingFilterFactory"/>
       </analyzer>
     </fieldType>
+
+    <!-- For the Solr Heatmap plugin-->
+    <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
+      geo="true" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers" normWrapLongitude="true"/>    
 
 
     <!-- Similarity is the scoring routine for each document vs. a query.
