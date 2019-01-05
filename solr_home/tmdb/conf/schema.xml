@@ -448,6 +448,9 @@
         <filter class="solr.LowerCaseFilterFactory"/>
         <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" />
       </analyzer>
+
+      <!--<similarity class="com.o19s.CountSimilarityFactory">
+      </similarity>-->
     </fieldType>
 
     <dynamicField name="*_bidirect_syn" type="text_general_bidirect_syn"  indexed="true"  stored="true"/>     
