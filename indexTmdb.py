@@ -16,6 +16,7 @@ def indexableMovies():
                    'title': tmdbMovie['title'],
                    'overview': tmdbMovie['overview'],
                    'tagline': tmdbMovie['tagline'],
+                   'cast_nomv': " ".join([castMember['name'] for castMember in tmdbMovie['cast']]),
                    'directors': [director['name'] for director in tmdbMovie['directors']],
                    'cast': [castMember['name'] for castMember in tmdbMovie['cast']],
                    'genres': [genre['name'] for genre in tmdbMovie['genres']],
