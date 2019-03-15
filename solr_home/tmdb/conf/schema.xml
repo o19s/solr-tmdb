@@ -127,7 +127,7 @@
     <field name="release_date" type="date" indexed="true" stored="true" />
     <field name="vote_average" docValues="false" type="float" indexed="true" stored="true" multiValued="false" />
     <field name="vote_count" type="int" indexed="true" stored="true" multiValued="false"/>
-
+    <field name="cast_nomv" type="text_general" indexed="true" stored="true" multiValued="false"/>
 
 
     <!-- an "all" field from our fields -->
@@ -210,6 +210,11 @@
     <copyField source="cast" dest="text_people"/>
     <copyField source="directors" dest="text_people"/>
 
+    <copyField source="cast" dest="text_people_notf"/>
+    <copyField source="directors" dest="text_people_notf"/>
+
+    <copyField source="cast" dest="text_people_notf_first10"/>
+    <copyField source="directors" dest="text_people_notf_first10"/>
 
     <field name="_version_" type="long" indexed="true" stored="false"/>
     <field name="_root_" type="string" indexed="true" stored="false" docValues="false" />
@@ -486,8 +491,8 @@
     </fieldType>
 
     <dynamicField name="*_multiterm_syn" type="text_general_multiterm_syn"  indexed="true"  stored="true"/> 
-    <fieldType name="text_general_multiterm_syn" class="solr.TextField" autoGeneratePhraseQueries="false" 
-      enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
+    <fieldType name="text_general_multiterm_syn" class="solr.TextField" autoGeneratePhraseQueries="true" 
+      enableGraphQueries="true" positionIncrementGap="100" multiValued="true">
       <analyzer type="index">
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
@@ -710,6 +715,56 @@
                 synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
         <filter class="solr.EnglishMinimalStemFilterFactory"/>
       </analyzer>
+    </fieldType>
+
+
+    <field type="name_text_notf" name="text_people_notf" multiValued="true"/>
+    <fieldType name="name_text_notf" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.EnglishPossessiveFilterFactory"/>
+        <filter class="solr.SynonymFilterFactory" 
+                synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.EnglishMinimalStemFilterFactory"/>
+      </analyzer>
+      <similarity class="solr.BM25SimilarityFactory">
+        <str name="k1">0</str>
+      </similarity>
+    </fieldType>
+
+    <field type="name_text_notf_first10" name="text_people_notf_first10" multiValued="true"/>
+    <fieldType name="name_text_notf_first10" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.EnglishPossessiveFilterFactory"/>
+        <filter class="solr.SynonymFilterFactory" 
+                synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.EnglishMinimalStemFilterFactory"/>
+          <filter class="solr.LimitTokenCountFilterFactory" maxTokenCount="10"
+          consumeAllTokens="false" />
+      </analyzer>
+      <similarity class="solr.BM25SimilarityFactory">
+        <str name="k1">0</str>
+      </similarity>
+    </fieldType>
+
+    <field type="name_text_notf_first2" name="text_people_notf_first2" multiValued="true"/>
+    <fieldType name="name_text_notf_first2" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.EnglishPossessiveFilterFactory"/>
+        <filter class="solr.SynonymFilterFactory" 
+                synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.EnglishMinimalStemFilterFactory"/>
+        <filter class="solr.LimitTokenCountFilterFactory" maxTokenCount="2"
+          consumeAllTokens="false" />
+      </analyzer>
+      <similarity class="solr.BM25SimilarityFactory">
+        <str name="k1">0</str>
+      </similarity>
     </fieldType>
 
     <field type="name_text_even_better" omitNorms="true" name="text_people_even_better" multiValued="true"/>
