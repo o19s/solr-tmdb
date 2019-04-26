@@ -1,0 +1,7 @@
+{
+  "name": "overviewSearch",
+  "class": "org.apache.solr.ltr.feature.SolrFeature",
+  "params": {
+    "q": "{!edismax qf='overview'}${keywords}"
+  }
+}

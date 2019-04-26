@@ -117,18 +117,22 @@
          WARNING: The _text_ catch-all field will significantly increase your index size.
          If you don't need it, consider removing it and the corresponding copyField directive.
     -->
-    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="overview" type="text_general" indexed="true" stored="true" />
-    <field name="title" type="text_general" indexed="true" stored="true" termVectors="true" termPositions="true" termOffsets="true" />
-    <field name="tagline" type="text_general" indexed="true" stored="true" />
-    <field name="cast" type="text_general" indexed="true" stored="true" multiValued="true" />
-    <field name="directors" type="text_general" indexed="true" stored="true" multiValued="true" />
-    <field name="genres" type="text_general" indexed="true" stored="true" multiValued="true" />
-    <field name="release_date" type="date" indexed="true" stored="true" />
-    <field name="vote_average" docValues="false" type="float" indexed="true" stored="true" multiValued="false" />
+    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
+    <field name="overview" type="text_general" indexed="true" stored="true"/>
+    <field name="title" type="text_general" indexed="true" stored="true" termVectors="true" termPositions="true"
+           termOffsets="true"/>
+    <field name="tagline" type="text_general" indexed="true" stored="true"/>
+    <field name="cast" type="text_general" indexed="true" stored="true" multiValued="true"/>
+    <field name="directors" type="text_general" indexed="true" stored="true" multiValued="true"/>
+    <field name="genres" type="text_general" indexed="true" stored="true" multiValued="true"/>
+    <field name="genres_s" type="string" indexed="true" stored="true" multiValued="true"/>
+    <field name="release_date" type="date" indexed="true" stored="true"/>
+    <field name="vote_average" docValues="false" type="float" indexed="true" stored="true" multiValued="false"/>
     <field name="vote_count" type="int" indexed="true" stored="true" multiValued="false"/>
     <field name="cast_nomv" type="text_general" indexed="true" stored="true" multiValued="false"/>
 
+
+    <copyField source="genres" dest="genres_s"/>
 
     <!-- an "all" field from our fields -->
     <copyField source="overview" dest="text_all"/>
@@ -187,7 +191,6 @@
     <copyField source="directors" dest="directors_en"/>
     <copyField source="genres" dest="genres_en"/>
 
-  
 
     <copyField source="overview" dest="overview_ws_syn"/>
     <copyField source="title" dest="title_ws_syn"/>
@@ -217,7 +220,7 @@
     <copyField source="directors" dest="text_people_notf_first10"/>
 
     <field name="_version_" type="long" indexed="true" stored="false"/>
-    <field name="_root_" type="string" indexed="true" stored="false" docValues="false" />
+    <field name="_root_" type="string" indexed="true" stored="false" docValues="false"/>
     <field name="text_all" type="text_general" indexed="true" stored="true" multiValued="true"/>
 
 
@@ -227,7 +230,7 @@
         unknown fields indexed and/or stored by default 
         
         NB: use of "*" dynamic fields will disable field type guessing and adding
-        unknown fields to the schema. --> 
+        unknown fields to the schema. -->
     <!--dynamicField name="*" type="ignored" multiValued="true" /-->
 
     <!-- Field to use to determine and enforce document uniqueness.
@@ -254,8 +257,8 @@
        It supports doc values but in that case the field needs to be
        single-valued and either required or have a default value.
       -->
-    <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true" />
-    <fieldType name="strings" class="solr.StrField" sortMissingLast="true" multiValued="true" docValues="true" />
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true"/>
+    <fieldType name="strings" class="solr.StrField" sortMissingLast="true" multiValued="true" docValues="true"/>
 
     <!-- boolean type: "true" or "false" -->
     <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
@@ -276,7 +279,7 @@
        - If sortMissingLast="false" and sortMissingFirst="false" (the default),
          then default lucene sorting will be used which places docs without the
          field first in an ascending sort and last in a descending sort.
-    -->    
+    -->
 
     <!--
       Default numeric field types. For faster range queries, consider the tint/tfloat/tlong/tdouble types.
@@ -289,10 +292,14 @@
     <fieldType name="long" class="solr.TrieLongField" docValues="true" precisionStep="0" positionIncrementGap="0"/>
     <fieldType name="double" class="solr.TrieDoubleField" docValues="true" precisionStep="0" positionIncrementGap="0"/>
 
-    <fieldType name="ints" class="solr.TrieIntField" docValues="true" precisionStep="0" positionIncrementGap="0" multiValued="true"/>
-    <fieldType name="floats" class="solr.TrieFloatField" docValues="true" precisionStep="0" positionIncrementGap="0" multiValued="true"/>
-    <fieldType name="longs" class="solr.TrieLongField" docValues="true" precisionStep="0" positionIncrementGap="0" multiValued="true"/>
-    <fieldType name="doubles" class="solr.TrieDoubleField" docValues="true" precisionStep="0" positionIncrementGap="0" multiValued="true"/>
+    <fieldType name="ints" class="solr.TrieIntField" docValues="true" precisionStep="0" positionIncrementGap="0"
+               multiValued="true"/>
+    <fieldType name="floats" class="solr.TrieFloatField" docValues="true" precisionStep="0" positionIncrementGap="0"
+               multiValued="true"/>
+    <fieldType name="longs" class="solr.TrieLongField" docValues="true" precisionStep="0" positionIncrementGap="0"
+               multiValued="true"/>
+    <fieldType name="doubles" class="solr.TrieDoubleField" docValues="true" precisionStep="0" positionIncrementGap="0"
+               multiValued="true"/>
 
     <!--
      Numeric field types that index each value at various levels of precision
@@ -308,11 +315,15 @@
     <fieldType name="tfloat" class="solr.TrieFloatField" docValues="true" precisionStep="8" positionIncrementGap="0"/>
     <fieldType name="tlong" class="solr.TrieLongField" docValues="true" precisionStep="8" positionIncrementGap="0"/>
     <fieldType name="tdouble" class="solr.TrieDoubleField" docValues="true" precisionStep="8" positionIncrementGap="0"/>
-    
-    <fieldType name="tints" class="solr.TrieIntField" docValues="true" precisionStep="8" positionIncrementGap="0" multiValued="true"/>
-    <fieldType name="tfloats" class="solr.TrieFloatField" docValues="true" precisionStep="8" positionIncrementGap="0" multiValued="true"/>
-    <fieldType name="tlongs" class="solr.TrieLongField" docValues="true" precisionStep="8" positionIncrementGap="0" multiValued="true"/>
-    <fieldType name="tdoubles" class="solr.TrieDoubleField" docValues="true" precisionStep="8" positionIncrementGap="0" multiValued="true"/>
+
+    <fieldType name="tints" class="solr.TrieIntField" docValues="true" precisionStep="8" positionIncrementGap="0"
+               multiValued="true"/>
+    <fieldType name="tfloats" class="solr.TrieFloatField" docValues="true" precisionStep="8" positionIncrementGap="0"
+               multiValued="true"/>
+    <fieldType name="tlongs" class="solr.TrieLongField" docValues="true" precisionStep="8" positionIncrementGap="0"
+               multiValued="true"/>
+    <fieldType name="tdoubles" class="solr.TrieDoubleField" docValues="true" precisionStep="8" positionIncrementGap="0"
+               multiValued="true"/>
 
     <!-- The format for this date field is of the form 1995-12-31T23:59:59Z, and
          is a more restricted form of the canonical representation of dateTime
@@ -337,12 +348,14 @@
          Note: For faster range queries, consider the tdate type
       -->
     <fieldType name="date" class="solr.TrieDateField" docValues="true" precisionStep="0" positionIncrementGap="0"/>
-    <fieldType name="dates" class="solr.TrieDateField" docValues="true" precisionStep="0" positionIncrementGap="0" multiValued="true"/>
+    <fieldType name="dates" class="solr.TrieDateField" docValues="true" precisionStep="0" positionIncrementGap="0"
+               multiValued="true"/>
 
     <!-- A Trie based date field for faster date range queries and date faceting. -->
     <fieldType name="tdate" class="solr.TrieDateField" docValues="true" precisionStep="6" positionIncrementGap="0"/>
 
-    <fieldType name="tdates" class="solr.TrieDateField" docValues="true" precisionStep="6" positionIncrementGap="0" multiValued="true"/>
+    <fieldType name="tdates" class="solr.TrieDateField" docValues="true" precisionStep="6" positionIncrementGap="0"
+               multiValued="true"/>
 
 
     <!--Binary data type. The data should be sent/retrieved in as Base64 encoded Strings -->
@@ -359,43 +372,43 @@
          for the same version of the index, use a dynamicField and
          change the field name in the request.
      -->
-    <fieldType name="random" class="solr.RandomSortField" indexed="true" />
+    <fieldType name="random" class="solr.RandomSortField" indexed="true"/>
 
-<fieldType name="text_stem" class="solr.TextField" positionIncrementGap="100">
-       <analyzer type="index">
-         <charFilter class="solr.HTMLStripCharFilterFactory"/>
-         <tokenizer class="solr.StandardTokenizerFactory"/>
-         <filter class="solr.LowerCaseFilterFactory"/>
-         <filter class="solr.KStemFilterFactory"/>
-         <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-       </analyzer>
-       <analyzer type="query">
-         <tokenizer class="solr.StandardTokenizerFactory"/>
-         <filter class="solr.LowerCaseFilterFactory"/>
-         <filter class="solr.KStemFilterFactory"/>
-       </analyzer>
-     </fieldType>
-
-
-      <fieldType name="text_stem2" class="solr.TextField" positionIncrementGap="100">
-       <analyzer type="index">
-         <charFilter class="solr.HTMLStripCharFilterFactory"/>
-         <tokenizer class="solr.StandardTokenizerFactory"/>
-         <filter class="solr.LowerCaseFilterFactory"/>
-         <filter class="solr.EnglishPossessiveFilterFactory"/>
-
-         <filter class="solr.KStemFilterFactory"/>
-         <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-       </analyzer>
-       <analyzer type="query">
-         <tokenizer class="solr.StandardTokenizerFactory"/>
-         <filter class="solr.EnglishPossessiveFilterFactory"/>
+    <fieldType name="text_stem" class="solr.TextField" positionIncrementGap="100">
+        <analyzer type="index">
+            <charFilter class="solr.HTMLStripCharFilterFactory"/>
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.KStemFilterFactory"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.KStemFilterFactory"/>
+        </analyzer>
+    </fieldType>
 
 
-         <filter class="solr.LowerCaseFilterFactory"/>
-         <filter class="solr.KStemFilterFactory"/>
-       </analyzer>
-     </fieldType>
+    <fieldType name="text_stem2" class="solr.TextField" positionIncrementGap="100">
+        <analyzer type="index">
+            <charFilter class="solr.HTMLStripCharFilterFactory"/>
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.EnglishPossessiveFilterFactory"/>
+
+            <filter class="solr.KStemFilterFactory"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.EnglishPossessiveFilterFactory"/>
+
+
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.KStemFilterFactory"/>
+        </analyzer>
+    </fieldType>
 
     <!-- solr.TextField allows the specification of custom text analyzers
          specified as a tokenizer and a list of token filters. Different
@@ -434,363 +447,365 @@
 
 
 	  -->
-    <fieldType name="text_general" class="solr.TextField" autoGeneratePhraseQueries="false" 
-      enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
-        <!-- in this example, we will only use synonyms at query time
-        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
-        -->
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" />
-      </analyzer>
+    <fieldType name="text_general" class="solr.TextField" autoGeneratePhraseQueries="false"
+               enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <!-- in this example, we will only use synonyms at query time
+            <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+            -->
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt"/>
+        </analyzer>
     </fieldType>
 
-    <dynamicField name="*_bidirect_syn" type="text_general_bidirect_syn"  indexed="true"  stored="true"/>     
-    <fieldType name="text_general_bidirect_syn" class="solr.TextField" autoGeneratePhraseQueries="false" 
-      enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
-        <!-- in this example, we will only use synonyms at query time
-        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
-        -->
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_bidirect.txt" />
-      </analyzer>
+    <dynamicField name="*_bidirect_syn" type="text_general_bidirect_syn" indexed="true" stored="true"/>
+    <fieldType name="text_general_bidirect_syn" class="solr.TextField" autoGeneratePhraseQueries="false"
+               enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <!-- in this example, we will only use synonyms at query time
+            <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+            -->
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_bidirect.txt"/>
+        </analyzer>
     </fieldType>
 
-    <dynamicField name="*_directed_syn" type="text_general_directed_syn"  indexed="true"  stored="true"/> 
-    <fieldType name="text_general_directed_syn" class="solr.TextField" autoGeneratePhraseQueries="false" 
-      enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
-        <!-- in this example, we will only use synonyms at query time
-        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
-        -->
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_directed.txt" />
-      </analyzer>
+    <dynamicField name="*_directed_syn" type="text_general_directed_syn" indexed="true" stored="true"/>
+    <fieldType name="text_general_directed_syn" class="solr.TextField" autoGeneratePhraseQueries="false"
+               enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <!-- in this example, we will only use synonyms at query time
+            <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+            -->
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_directed.txt"/>
+        </analyzer>
     </fieldType>
 
-    <dynamicField name="*_multiterm_syn" type="text_general_multiterm_syn"  indexed="true"  stored="true"/> 
-    <fieldType name="text_general_multiterm_syn" class="solr.TextField" autoGeneratePhraseQueries="true" 
-      enableGraphQueries="true" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
-        <!-- in this example, we will only use synonyms at query time
-        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
-        -->
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_multiterm.txt" />
-      </analyzer>
+    <dynamicField name="*_multiterm_syn" type="text_general_multiterm_syn" indexed="true" stored="true"/>
+    <fieldType name="text_general_multiterm_syn" class="solr.TextField" autoGeneratePhraseQueries="true"
+               enableGraphQueries="true" positionIncrementGap="100" multiValued="true">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <!-- in this example, we will only use synonyms at query time
+            <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+            -->
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_multiterm.txt"/>
+        </analyzer>
     </fieldType>
 
-    <dynamicField name="*_ws_syn" type="text_general_ws_syn"  indexed="true"  stored="true"/> 
-    <fieldType name="text_general_ws_syn" class="solr.TextField" autoGeneratePhraseQueries="false" 
-      enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
-        <!-- in this example, we will only use synonyms at query time
-        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
-        -->
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" />
-      </analyzer>
+    <dynamicField name="*_ws_syn" type="text_general_ws_syn" indexed="true" stored="true"/>
+    <fieldType name="text_general_ws_syn" class="solr.TextField" autoGeneratePhraseQueries="false"
+               enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <!-- in this example, we will only use synonyms at query time
+            <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+            -->
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt"/>
+        </analyzer>
     </fieldType>
 
-    <dynamicField name="*_auto_phrase_syn" type="text_general_auto_phrase_syn"  indexed="true"  stored="true"/> 
-    <fieldType name="text_general_auto_phrase_syn" class="solr.TextField" autoGeneratePhraseQueries="true" 
-      enableGraphQueries="true" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
-        <!-- in this example, we will only use synonyms at query time
-        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
-        -->
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_multiterm.txt" />
-        
-      </analyzer>
+    <dynamicField name="*_auto_phrase_syn" type="text_general_auto_phrase_syn" indexed="true" stored="true"/>
+    <fieldType name="text_general_auto_phrase_syn" class="solr.TextField" autoGeneratePhraseQueries="true"
+               enableGraphQueries="true" positionIncrementGap="100" multiValued="true">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <!-- in this example, we will only use synonyms at query time
+            <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+            -->
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms_multiterm.txt"/>
+
+        </analyzer>
     </fieldType>
 
-    <dynamicField name="*_auto_phrase_bigram" type="text_general_auto_phrase_bigram"  indexed="true"  stored="true"/> 
-    <fieldType name="text_general_auto_phrase_bigram" class="solr.TextField" autoGeneratePhraseQueries="true" 
-      enableGraphQueries="true" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
-        <!-- in this example, we will only use synonyms at query time
-        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
-        -->
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
-        <filter class="solr.LowerCaseFilterFactory"/>
+    <dynamicField name="*_auto_phrase_bigram" type="text_general_auto_phrase_bigram" indexed="true" stored="true"/>
+    <fieldType name="text_general_auto_phrase_bigram" class="solr.TextField" autoGeneratePhraseQueries="true"
+               enableGraphQueries="true" positionIncrementGap="100" multiValued="true">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <!-- in this example, we will only use synonyms at query time
+            <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+            -->
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
         <filter class="solr.ShingleFilterFactory" outputUnigrams="false" />
-      </analyzer>
+        </analyzer>
     </fieldType>
 
     <copyField source="text" dest="text_preamble"/>
-    <field type="text_type_preamble"  name="text_preamble" multiValued="true"/>
+    <field type="text_type_preamble" name="text_preamble" multiValued="true"/>
     <fieldType name="text_type_preamble" class="solr.TextField">
-     <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
 
-        <filter class="solr.LimitTokenCountFilterFactory" maxTokenCount="6"
-                consumeAllTokens="false" />
+            <filter class="solr.LimitTokenCountFilterFactory" maxTokenCount="6"
+                    consumeAllTokens="false"/>
 
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
 
-      </analyzer>
+        </analyzer>
     </fieldType>
-    
-    <dynamicField name="*_idioms" type="text_general_idiomatic"  indexed="true"  stored="true"/> 
-    <fieldType name="text_general_idiomatic" class="solr.TextField" autoGeneratePhraseQueries="true" 
-      enableGraphQueries="true" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
 
-        <!-- turn idiomatic phrases like looney tunes into a single 
-             term at index time-->
-        <filter class="solr.SynonymGraphFilterFactory" expand="false" synonyms="idioms.txt" />
-        <filter class="solr.FlattenGraphFilterFactory" />
+    <dynamicField name="*_idioms" type="text_general_idiomatic" indexed="true" stored="true"/>
+    <fieldType name="text_general_idiomatic" class="solr.TextField" autoGeneratePhraseQueries="true"
+               enableGraphQueries="true" positionIncrementGap="100" multiValued="true">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
 
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
+            <!-- turn idiomatic phrases like looney tunes into a single
+                 term at index time-->
+            <filter class="solr.SynonymGraphFilterFactory" expand="false" synonyms="idioms.txt"/>
+            <filter class="solr.FlattenGraphFilterFactory"/>
 
-        <!-- turn idiomatic phrases like looney tunes into a single 
-             term at query time-->
-        <filter class="solr.SynonymGraphFilterFactory" expand="false" synonyms="idioms.txt" />
-      </analyzer>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+
+            <!-- turn idiomatic phrases like looney tunes into a single
+                 term at query time-->
+            <filter class="solr.SynonymGraphFilterFactory" expand="false" synonyms="idioms.txt"/>
+        </analyzer>
     </fieldType>
-    
 
-        
-    <dynamicField name="*_taxonomy" type="text_general_taxonomic"  indexed="true"  stored="true"/>
-    
-    <fieldType name="text_general_taxonomic" class="solr.TextField" autoGeneratePhraseQueries="true" 
-      enableGraphQueries="true" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <!-- in this example, we will only use synonyms at query time
-        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
-        -->
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.SynonymGraphFilterFactory" synonyms="taxonomy.txt" />
-        <filter class="solr.FlattenGraphFilterFactory" />
 
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.SynonymGraphFilterFactory" synonyms="taxonomy_parent.txt" />
-      </analyzer>
+    <dynamicField name="*_taxonomy" type="text_general_taxonomic" indexed="true" stored="true"/>
+
+    <fieldType name="text_general_taxonomic" class="solr.TextField" omitNorms="true" autoGeneratePhraseQueries="true"
+               enableGraphQueries="true" synonymQueryStyle="pick_best" positionIncrementGap="100" multiValued="true">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <!-- in this example, we will only use synonyms at query time
+            <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+            -->
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.SynonymGraphFilterFactory" synonyms="taxonomy.txt"/>
+            <filter class="solr.FlattenGraphFilterFactory"/>
+
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.SynonymGraphFilterFactory" synonyms="taxonomy_parent.txt"/>
+        </analyzer>
+
+        <similarity class="solr.BM25SimilarityFactory">
+            <str name="k1">0</str>
+        </similarity>
     </fieldType>
-    
+
 
     <!-- A text field with defaults appropriate for English: it
          tokenizes with StandardTokenizer, removes English stop words
          (lang/stopwords_en.txt), down cases, protects words from protwords.txt, and
          finally applies Porter's stemming.  The query time analyzer
          also applies synonyms from synonyms.txt. -->
-    <dynamicField name="*_en" type="text_en"  indexed="true"  stored="true"/>
-    <fieldType name="text_en" class="solr.TextField" multiValued="true" autoGeneratePhraseQueries="true"  positionIncrementGap="100">
-      <analyzer type="index">
-        <charFilter class="solr.HTMLStripCharFilterFactory"/>
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory"
-                ignoreCase="true"
-                words="lang/stopwords_en.txt"
+    <dynamicField name="*_en" type="text_en" indexed="true" stored="true"/>
+    <fieldType name="text_en" class="solr.TextField" multiValued="true" autoGeneratePhraseQueries="true"
+               positionIncrementGap="100">
+        <analyzer type="index">
+            <charFilter class="solr.HTMLStripCharFilterFactory"/>
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory"
+                    ignoreCase="true"
+                    words="lang/stopwords_en.txt"
             />
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.EnglishPossessiveFilterFactory"/>
-        <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
-        <filter class="solr.PorterStemFilterFactory"/>
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
-        <filter class="solr.StopFilterFactory"
-                ignoreCase="true"
-                words="lang/stopwords_en.txt"
-        />
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.EnglishPossessiveFilterFactory"/>
-        <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
-        <filter class="solr.PorterStemFilterFactory"/>
-      </analyzer>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.EnglishPossessiveFilterFactory"/>
+            <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
+            <filter class="solr.PorterStemFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+            <filter class="solr.StopFilterFactory"
+                    ignoreCase="true"
+                    words="lang/stopwords_en.txt"
+            />
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.EnglishPossessiveFilterFactory"/>
+            <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
+            <filter class="solr.PorterStemFilterFactory"/>
+        </analyzer>
     </fieldType>
 
     <fieldType name="my_text_field" class="solr.TextField">
-      <analyzer type="index">
-        <charFilter class="solr.HTMLStripCharFilterFactory"/>
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.EnglishPossessiveFilterFactory"/>
-        <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
-        <filter class="solr.PorterStemFilterFactory"/>
+        <analyzer type="index">
+            <charFilter class="solr.HTMLStripCharFilterFactory"/>
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.EnglishPossessiveFilterFactory"/>
+            <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
+            <filter class="solr.PorterStemFilterFactory"/>
 
-      </analyzer>
+        </analyzer>
     </fieldType>
 
 
-
     <fieldType name="my_text_field_try2" class="solr.TextField">
-      <analyzer type="index">
-        <charFilter class="solr.HTMLStripCharFilterFactory"/>
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.EnglishPossessiveFilterFactory"/>
-        <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
-        <filter class="solr.EnglishMinimalStemFilterFactory"/>
-      </analyzer>
+        <analyzer type="index">
+            <charFilter class="solr.HTMLStripCharFilterFactory"/>
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.EnglishPossessiveFilterFactory"/>
+            <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
+            <filter class="solr.EnglishMinimalStemFilterFactory"/>
+        </analyzer>
     </fieldType>
 
 
     <field type="text_doug" name="text"/>
     <fieldType name="text_doug" class="solr.TextField">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.EnglishPossessiveFilterFactory"/>
-        <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
-        <filter class="solr.EnglishMinimalStemFilterFactory"/>
-      </analyzer>
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.EnglishPossessiveFilterFactory"/>
+            <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
+            <filter class="solr.EnglishMinimalStemFilterFactory"/>
+        </analyzer>
     </fieldType>
-
 
 
     <copyField source="text" dest="text_people"/>
     <field type="name_text_better" name="text_people" multiValued="true"/>
     <fieldType name="name_text_better" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.EnglishPossessiveFilterFactory"/>
-        <filter class="solr.SynonymFilterFactory" 
-                synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
-        <filter class="solr.EnglishMinimalStemFilterFactory"/>
-      </analyzer>
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.EnglishPossessiveFilterFactory"/>
+            <filter class="solr.SynonymFilterFactory"
+                    synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
+            <filter class="solr.EnglishMinimalStemFilterFactory"/>
+        </analyzer>
     </fieldType>
 
 
     <field type="name_text_notf" name="text_people_notf" multiValued="true"/>
     <fieldType name="name_text_notf" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.EnglishPossessiveFilterFactory"/>
-        <filter class="solr.SynonymFilterFactory" 
-                synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
-        <filter class="solr.EnglishMinimalStemFilterFactory"/>
-      </analyzer>
-      <similarity class="solr.BM25SimilarityFactory">
-        <str name="k1">0</str>
-      </similarity>
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.EnglishPossessiveFilterFactory"/>
+            <filter class="solr.SynonymFilterFactory"
+                    synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
+            <filter class="solr.EnglishMinimalStemFilterFactory"/>
+        </analyzer>
+        <similarity class="solr.BM25SimilarityFactory">
+            <str name="k1">0</str>
+        </similarity>
     </fieldType>
 
     <field type="name_text_notf_first10" name="text_people_notf_first10" multiValued="true"/>
     <fieldType name="name_text_notf_first10" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.EnglishPossessiveFilterFactory"/>
-        <filter class="solr.SynonymFilterFactory" 
-                synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
-        <filter class="solr.EnglishMinimalStemFilterFactory"/>
-          <filter class="solr.LimitTokenCountFilterFactory" maxTokenCount="10"
-          consumeAllTokens="false" />
-      </analyzer>
-      <similarity class="solr.BM25SimilarityFactory">
-        <str name="k1">0</str>
-      </similarity>
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.EnglishPossessiveFilterFactory"/>
+            <filter class="solr.SynonymFilterFactory"
+                    synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
+            <filter class="solr.EnglishMinimalStemFilterFactory"/>
+            <filter class="solr.LimitTokenCountFilterFactory" maxTokenCount="10"
+                    consumeAllTokens="false"/>
+        </analyzer>
+        <similarity class="solr.BM25SimilarityFactory">
+            <str name="k1">0</str>
+        </similarity>
     </fieldType>
 
     <field type="name_text_notf_first2" name="text_people_notf_first2" multiValued="true"/>
     <fieldType name="name_text_notf_first2" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.EnglishPossessiveFilterFactory"/>
-        <filter class="solr.SynonymFilterFactory" 
-                synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
-        <filter class="solr.EnglishMinimalStemFilterFactory"/>
-        <filter class="solr.LimitTokenCountFilterFactory" maxTokenCount="2"
-          consumeAllTokens="false" />
-      </analyzer>
-      <similarity class="solr.BM25SimilarityFactory">
-        <str name="k1">0</str>
-      </similarity>
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.EnglishPossessiveFilterFactory"/>
+            <filter class="solr.SynonymFilterFactory"
+                    synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
+            <filter class="solr.EnglishMinimalStemFilterFactory"/>
+            <filter class="solr.LimitTokenCountFilterFactory" maxTokenCount="2"
+                    consumeAllTokens="false"/>
+        </analyzer>
+        <similarity class="solr.BM25SimilarityFactory">
+            <str name="k1">0</str>
+        </similarity>
     </fieldType>
 
     <field type="name_text_even_better" omitNorms="true" name="text_people_even_better" multiValued="true"/>
     <fieldType name="name_text_even_better" class="solr.TextField" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.EnglishPossessiveFilterFactory"/>
-        <filter class="solr.SynonymFilterFactory" 
-                synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
-        <filter class="solr.KeepWordFilterFactory" 
-                words="names.txt"/>
-        <filter class="solr.EnglishMinimalStemFilterFactory"/>
-      </analyzer>
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.EnglishPossessiveFilterFactory"/>
+            <filter class="solr.SynonymFilterFactory"
+                    synonyms="name_synonyms.txt" ignoreCase="true" expand="true"/>
+            <filter class="solr.KeepWordFilterFactory"
+                    words="names.txt"/>
+            <filter class="solr.EnglishMinimalStemFilterFactory"/>
+        </analyzer>
     </fieldType>
 
-    <dynamicField name="*_first_char" type="text_first_char"  indexed="true"  stored="true"/>
-    <fieldType name="text_first_char" class="solr.TextField" autoGeneratePhraseQueries="false" 
-      enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.PatternReplaceFilterFactory" pattern="(.).*" replacement="$1"/>
-        <filter class="solr.ShingleFilterFactory" minShingleSize="3" maxShingleSize="3" outputUnigrams="false" />
+    <dynamicField name="*_first_char" type="text_first_char" indexed="true" stored="true"/>
+    <fieldType name="text_first_char" class="solr.TextField" autoGeneratePhraseQueries="false"
+               enableGraphQueries="false" positionIncrementGap="100" multiValued="true">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.PatternReplaceFilterFactory" pattern="(.).*" replacement="$1"/>
+            <filter class="solr.ShingleFilterFactory" minShingleSize="3" maxShingleSize="3" outputUnigrams="false"/>
 
-      </analyzer>
+        </analyzer>
     </fieldType>
 
 

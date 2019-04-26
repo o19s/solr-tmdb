@@ -8,3 +8,6 @@
 
 wife => wife, spouse
 bride => bride, spouse
+
+science fiction => science_fiction, fiction, adventure
+fantasy => fantasy, fiction, adventure
