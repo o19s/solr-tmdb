@@ -22,3 +22,8 @@ In your browser, navigate to "http://localhost:8983/solr/" to confirm Solr is ru
 # Confirm Solr has TMDB movies
 
 Navigate [here](http://localhost:8983/solr/tmdb/select?q=title:lego) and confirm you get results.
+
+# Tips
+
+1. Have Docker installed?  Run `run_docker_solr.sh` to fire up   Solr.
+1. Have both Python 2 and Python 3 installed?  You may need to run `python3 indexTmdb.py`.
