@@ -3,3 +3,6 @@ venv
 tmdb.json
 data/
 lib/
+bin/
+.idea/
+*.cfg
