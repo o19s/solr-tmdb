@@ -25,11 +25,7 @@ Two options exist to run Solr.
 If you have [Docker](https://www.docker.com/products/docker-desktop) installed and running.
 
 ```
-# run the container in detached mode
-docker run --name solr --rm -d -p 8983:8983 -v $PWD/solr_home:/opt/mysolrhome -e SOLR_HOME=/opt/mysolrhome -e INIT_SOLR_HOME=yes solr:7.7.1
-
-# kill the container
-docker kill solr
+docker run -p 8983:8983 -v $PWD/solr_home:/opt/mysolrhome -e SOLR_HOME=/opt/mysolrhome -e INIT_SOLR_HOME=yes solr:7.7.1
 ```
 
 ### Local option
@@ -42,7 +38,7 @@ docker kill solr
 ./bin/solr start -f -s /path/to/solr-tmdb/solr_home/
 ```
 
-Regardless of the option you choose, navigate to [http://localhost:8983/solr/]() to confirm Solr is running.
+Regardless of the option you choose, navigate to [http://localhost:8983/solr/](http://localhost:8983/solr/) to confirm Solr is running.
 
 # Index TMDB movies
 
