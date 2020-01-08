@@ -25,6 +25,7 @@ Two options exist to run Solr.
 If you have [Docker](https://www.docker.com/products/docker-desktop) installed and running.
 
 ```
+docker pull solr:7.7.1
 docker run -p 8983:8983 -v $(PWD)/solr_home:/opt/mysolrhome -e SOLR_HOME=/opt/mysolrhome -e INIT_SOLR_HOME=yes solr:7.7.1
 ```
 
@@ -54,7 +55,7 @@ Optional: set up a virtual environment.
 
 ```
 python -m venv .
-source bin/activate 
+source bin/activate
 ```
 
 Required:
