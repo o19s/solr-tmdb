@@ -75,3 +75,5 @@ python indexTmdb.py
 # Confirm Solr has TMDB movies
 
 Navigate [here](http://localhost:8983/solr/tmdb/select?q=title:lego) and confirm you get results.
+
+If you don't see any results, trigger a [manuel commit](localhost:8983/solr/tmdb/update?commit=true).
