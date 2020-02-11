@@ -78,7 +78,6 @@ python indexTmdb.py
 
 Navigate [here](http://localhost:8983/solr/tmdb/select?q=title:lego) and confirm you get results.
 
-<<<<<<< HEAD
 If you don't see any results, trigger a [manuel commit](localhost:8983/solr/tmdb/update?commit=true).
 
 # Postman
@@ -98,7 +97,3 @@ This collection is also valuable for testing examples against new versions of El
 ```
 newman run --global-var "es_host=localhost:9200" es-TLRE-postman_collection.json
 ```
-=======
-If you don't see any results, trigger a [manual commit](localhost:8983/solr/tmdb/update?commit=true).
-
->>>>>>> test signing
