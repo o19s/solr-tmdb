@@ -1,6 +1,5 @@
 import pysolr
 
-
 def indexableMovies():
     """ Generates TMDB movies, similar to how ES Bulk indexing
         uses a generator to generate bulk index/update actions """
