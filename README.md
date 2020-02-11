@@ -25,18 +25,29 @@ Two options exist to run Solr.
 If you have [Docker](https://www.docker.com/products/docker-desktop) installed and running.
 
 ```
+<<<<<<< HEAD
 docker pull solr:8.1
 docker run -p 8983:8983 -v $(PWD)/solr_home:/opt/mysolrhome -e SOLR_HOME=/opt/mysolrhome -e INIT_SOLR_HOME=yes solr:8.1
+=======
+docker pull solr:8.4.1
+docker run -p 8983:8983 -v $(PWD)/solr_home:/opt/mysolrhome -e SOLR_HOME=/opt/mysolrhome -e INIT_SOLR_HOME=yes solr:8.4.1
+>>>>>>> update to Solr v8.4.1
 ```
 
 ### Local option
 
+<<<<<<< HEAD
 1. Download and unpack [Solr 8.1](http://http://archive.apache.org/dist/lucene/solr/8.1.1/8.1.1.zip)
+=======
+1. Download and unpack [Solr 8.4.1](http://mirror.metrocast.net/apache/lucene/solr/8.4.1/solr-8.4.1.zip)
+>>>>>>> update to Solr v8.4.1
 
-2. Run Solr pointing at the Solr Home directory included here
+2. Navigate into the newly unzipped directory.
+
+3. Run Solr pointing at the Solr Home directory included in this repo.
 
 ```
-./bin/solr start -f -s /path/to/solr-tmdb/solr_home/
+bin/solr start -f -s /path/to/solr-tmdb/solr_home/
 ```
 
 Regardless of the option you choose, navigate to [http://localhost:8983/solr/](http://localhost:8983/solr/) to confirm Solr is running.
@@ -77,7 +88,6 @@ python indexTmdb.py
 Navigate [here](http://localhost:8983/solr/tmdb/select?q=title:lego) and confirm you get results.
 
 If you don't see any results, trigger a [manuel commit](localhost:8983/solr/tmdb/update?commit=true).
-
 
 # Postman
 
