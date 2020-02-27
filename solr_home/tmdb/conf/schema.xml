@@ -682,6 +682,20 @@
         </analyzer>
     </fieldType>
 
+<fieldType name="managed_en" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+  <analyzer type="index">
+    <tokenizer class="solr.StandardTokenizerFactory"/>
+    <filter class="solr.ManagedStopFilterFactory" managed="english" />
+    <filter class="solr.ManagedSynonymGraphFilterFactory" managed="english" />
+    <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
+  </analyzer>
+  <analyzer type="query">
+    <tokenizer class="solr.StandardTokenizerFactory"/>
+    <filter class="solr.ManagedStopFilterFactory" managed="english" />
+    <filter class="solr.ManagedSynonymGraphFilterFactory" managed="english" />
+  </analyzer>
+</fieldType>
+
     <fieldType name="my_text_field" class="solr.TextField">
         <analyzer type="index">
             <charFilter class="solr.HTMLStripCharFilterFactory"/>
