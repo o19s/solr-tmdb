@@ -95,5 +95,5 @@ If you want to use Postman during the TLRE class:
 This collection is also valuable for testing examples against new versions of Elasticsearch. Using Postman's command line tool [Newman](https://github.com/postmanlabs/newman) you can check all of the requests in the collection:
 
 ```
-newman run --global-var "es_host=localhost:9200" es-TLRE-postman_collection.json
+newman run --global-var "solr_host=localhost:8983" solr-TLRE-postman_collection.json
 ```
