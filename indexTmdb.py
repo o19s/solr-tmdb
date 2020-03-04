@@ -1,6 +1,5 @@
 import pysolr
 
-
 def indexableMovies():
     """ Generates TMDB movies, similar to how ES Bulk indexing
         uses a generator to generate bulk index/update actions """
@@ -31,5 +30,4 @@ def indexableMovies():
 
 if __name__ == "__main__":
     solr = pysolr.Solr('http://localhost:8983/solr/tmdb', timeout=100)
-    solr.add(indexableMovies())
-    solr.commit()
+    solr.add(indexableMovies(), commit=True)
