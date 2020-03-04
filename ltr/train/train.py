@@ -32,44 +32,6 @@ def partitionJudgments(judgments, testProportion=0.1):
 
     return (trainJudgments, testJudgments)
 
-
-
-def saveModel(esHost, scriptName, featureSet, modelFname):
-    """ Save the ranklib model in Elasticsearch """
-    import requests
-    import json
-    from urllib.parse import urljoin
-    modelPayload = {
-        "model": {
-            "name": scriptName,
-            "model": {
-                "type": "model/ranklib",
-                "definition": {
-                }
-            }
-        }
-    }
-
-    # Force the model cache to rebuild
-    path = "_ltr/_clearcache"
-    fullPath = urljoin(esHost, path)
-    print("POST %s" % fullPath)
-    resp = requests.post(fullPath)
-    if (resp.status_code >= 300):
-        print(resp.text)
-
-    with open(modelFname) as modelFile:
-        modelContent = modelFile.read()
-        path = "_ltr/_featureset/%s/_createmodel" % featureSet
-        fullPath = urljoin(esHost, path)
-        modelPayload['model']['model']['definition'] = modelContent
-        print("POST %s" % fullPath)
-        resp = requests.post(fullPath, json.dumps(modelPayload))
-        print(resp.status_code)
-        if (resp.status_code >= 300):
-            print(resp.text)
-
-
 if __name__ == "__main__":
 
     HUMAN_JUDGMENTS = 'movie_judgments.txt'
@@ -90,8 +52,7 @@ if __name__ == "__main__":
 
     solrColl = SolrColl(solrUrl)
 
-
-    # Load features into Elasticsearch
+    # Load features into Solr
     solrColl.reloadFeatures(features=eachFeature())
     # Parse a judgments
     print("-Parse judgments...")
@@ -101,7 +62,7 @@ if __name__ == "__main__":
     print("-Train test split")
     trainJudgments, testJudgments = partitionJudgments(movieJudgments, testProportion=0.1)
 
-    # Use proposed Elasticsearch queries (1.json.jinja ... N.json.jinja) to generate a training set
+    # Use proposed Solr queries (1.json... N.json) to generate a training set
     # output as "sample_judgments_wfeatures.txt"
     print("-Log Features")
     logFeatures(solrColl, judgmentsByQid=movieJudgments)
