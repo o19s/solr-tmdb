@@ -6,3 +6,4 @@ lib/
 bin/
 .idea/
 *.cfg
+.DS*
