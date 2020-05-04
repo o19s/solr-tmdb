@@ -31,7 +31,7 @@ docker run -p 8983:8983 -v $(PWD)/solr_home:/opt/mysolrhome -e SOLR_HOME=/opt/my
 
 ### Local option
 
-1. Download and unpack [Solr 8.4.1](http://mirror.metrocast.net/apache/lucene/solr/8.4.1/solr-8.4.1.zip)
+1. Download and unpack [Solr 8.4.1](https://archive.apache.org/dist/lucene/solr/8.4.1/solr-8.4.1.zip)
 
 2. Navigate into the newly unzipped directory.
 
