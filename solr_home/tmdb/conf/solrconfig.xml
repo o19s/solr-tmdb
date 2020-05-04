@@ -777,6 +777,7 @@
     <lst name="defaults">
       <str name="echoParams">explicit</str>
       <int name="rows">10</int>
+      <str name="hl.method">unified</str>
       <!-- <str name="df">text</str> -->
     </lst>
     <!-- In addition to defaults, "appends" params can be specified
