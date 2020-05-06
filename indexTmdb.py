@@ -11,10 +11,15 @@ def indexableMovies():
             if 'release_date' in tmdbMovie and len(tmdbMovie['release_date']) > 0:
                 releaseDate = tmdbMovie['release_date'] + 'T00:00:00Z'
 
+            posterPath = None
+            if 'poster_path' in tmdbMovie and tmdbMovie['poster_path'] != None:
+                posterPath = 'https://image.tmdb.org/t/p/w185' + tmdbMovie['poster_path']
+
             yield {'id': movieId,
                    'title': tmdbMovie['title'],
                    'overview': tmdbMovie['overview'],
                    'tagline': tmdbMovie['tagline'],
+                   'poster_path': posterPath,
                    'cast_nomv': " ".join([castMember['name'] for castMember in tmdbMovie['cast']]),
                    'directors': [director['name'] for director in tmdbMovie['directors']],
                    'cast': [castMember['name'] for castMember in tmdbMovie['cast']],
