@@ -92,8 +92,3 @@ If you want to use Postman during the TLRE class:
 4. Tinker with the base URL, Params or JSON Body (optional)
 5. Press 'Send' (blue rectangle button right of URL bar)
 
-This collection is also valuable for testing examples against new versions of Elasticsearch. Using Postman's command line tool [Newman](https://github.com/postmanlabs/newman) you can check all of the requests in the collection:
-
-```
-newman run --global-var "solr_host=localhost:8983" solr-TLRE-postman_collection.json
-```
