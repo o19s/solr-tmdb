@@ -18,7 +18,7 @@ This will record the status code in the CSV file and print the number of failed 
 
 #### Newman
 
-These tests check that version change in Elasticsearch don't damage TLRE examples.
+These tests check that version changes in Solr don't damage TLRE examples.
 
 [Newman](https://github.com/postmanlabs/newman) is the command line tool for managing Postman collections. All examples from the class, beyond just the links to Splainer, are included in the collection `../es-postman-collection.json`
 
