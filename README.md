@@ -88,7 +88,7 @@ If you want to use Postman during the TLRE class:
 
 1. Download [Postman](https://www.postman.com/downloads/) for your OS
 2. Open Postman and Import (top-menu >> File) `solr-TLRE-postman_collection.json`
-3. Define a global variable (grey eye icon in the upper-right) `solr-host` to point to your running Elasticsearch instance (default is `localhost:8983`)
+3. Define a global variable (grey eye icon in the upper-right) `solr_host` to point to your running Solr instance (default is `localhost:8983`)
 4. Tinker with the base URL, Params or JSON Body (optional)
 5. Press 'Send' (blue rectangle button right of URL bar)
 
