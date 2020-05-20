@@ -45,10 +45,10 @@ Regardless of the option you choose, navigate to [http://localhost:8983/solr/](h
 
 # Index TMDB movies
 
-1. Download [tmdb.json](http://es-learn-to-rank.labs.o19s.com/tmdb.json)
+1. Download [tmdb.json](https://o19s-public-datasets.s3.amazonaws.com/tmdb_2020-05-20.json)
 
 ```
-curl -o tmdb.json http://es-learn-to-rank.labs.o19s.com/tmdb.json
+curl -o tmdb.json https://o19s-public-datasets.s3.amazonaws.com/tmdb_2020-05-20.json 
 ```
 
 2. Install the [pysolr](https://github.com/django-haystack/pysolr) library
