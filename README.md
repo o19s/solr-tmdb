@@ -25,6 +25,12 @@ Two options exist to run Solr.
 If you have [Docker](https://www.docker.com/products/docker-desktop) installed and running.
 
 ```
+./docker.sh
+```
+
+which is:
+
+```
 docker pull solr:8.4.1
 docker run -p 8983:8983 -v $(PWD)/solr_home:/opt/mysolrhome -e SOLR_HOME=/opt/mysolrhome -e INIT_SOLR_HOME=yes solr:8.4.1
 ```
@@ -45,10 +51,10 @@ Regardless of the option you choose, navigate to [http://localhost:8983/solr/](h
 
 # Index TMDB movies
 
-1. Download [tmdb.json](https://o19s-public-datasets.s3.amazonaws.com/tmdb_2020-05-20.json)
+1. Download [tmdb.json](https://o19s-public-datasets.s3.amazonaws.com/tmdb.json)
 
 ```
-curl -o tmdb.json https://o19s-public-datasets.s3.amazonaws.com/tmdb_2020-05-20.json 
+curl -o tmdb.json https://o19s-public-datasets.s3.amazonaws.com/tmdb.json
 ```
 
 2. Install the [pysolr](https://github.com/django-haystack/pysolr) library
@@ -56,8 +62,8 @@ curl -o tmdb.json https://o19s-public-datasets.s3.amazonaws.com/tmdb_2020-05-20.
 Optional: set up a virtual environment.
 
 ```
-python -m venv .
-source bin/activate
+python -m venv venv
+source venv/bin/activate
 ```
 
 Required:
