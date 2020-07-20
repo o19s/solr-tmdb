@@ -20,7 +20,7 @@ After you clone this repo, change into the newly created directory.
 
 Two options exist to run Solr.
 
-### Docker option
+### Docker option (recomended)
 
 If you have [Docker](https://www.docker.com/products/docker-desktop) installed and running.
 
@@ -28,11 +28,11 @@ If you have [Docker](https://www.docker.com/products/docker-desktop) installed a
 ./docker.sh
 ```
 
-which is:
+or
 
 ```
 docker pull solr:8.4.1
-docker run -p 8983:8983 -v $(PWD)/solr_home:/opt/mysolrhome -e SOLR_HOME=/opt/mysolrhome -e INIT_SOLR_HOME=yes solr:8.4.1
+docker run -p 8983:8983 -v $(pwd)/solr_home:/opt/mysolrhome -e SOLR_HOME=/opt/mysolrhome -e INIT_SOLR_HOME=yes solr:8.4.1
 ```
 
 ### Local option
@@ -59,25 +59,29 @@ curl -o tmdb.json https://o19s-public-datasets.s3.amazonaws.com/tmdb.json
 
 2. Install the [pysolr](https://github.com/django-haystack/pysolr) library
 
-Optional: set up a virtual environment.
+Recomended: set up a virtual environment.
 
 ```
-python -m venv venv
+python3 -m venv venv
+```
+
+then
+
+```
 source venv/bin/activate
 ```
 
-Required:
+Required: install dependencies
 
 ```
-pip install pysolr
-# or
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
+
 
 3. Index movies
 
 ```
-python indexTmdb.py
+python3 indexTmdb.py
 ```
 
 # Confirm Solr has TMDB movies
@@ -94,7 +98,7 @@ If you want to use Postman during the TLRE class:
 
 1. Download [Postman](https://www.postman.com/downloads/) for your OS
 2. Open Postman and Import (top-menu >> File) `solr-TLRE-postman_collection.json`
-3. Define a global variable (grey eye icon in the upper-right) `solr_host` to point to your running Solr instance (default is `localhost:8983`)
+3. Define a global variable (grey eye icon in the upper-right) `solr-host` to point to your running Elasticsearch instance (default is `localhost:8983`)
 4. Tinker with the base URL, Params or JSON Body (optional)
 5. Press 'Send' (blue rectangle button right of URL bar)
 
