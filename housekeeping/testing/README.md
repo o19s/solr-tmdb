@@ -1,8 +1,8 @@
-## Testing TLRE examples
+# Testing TLRE examples
 
 TLRE examples are vunerable to changes in external tooling (Splainer, Quepid ) and Solr itself. So to ensure things are ready to go for training we've scripted these "tests" to check all of the examples.
 
-#### Splainer
+## Splainer
 
 These tests check that changes to Splainer don't damage TLRE examples.
 
@@ -24,7 +24,7 @@ python splainer_puppet_solr.py
 
 This will record the status code in the CSV file and print the number of failed queries to console.
 
-#### Newman
+## Newman
 
 These tests check that version changes in Solr don't damage TLRE examples.
 
