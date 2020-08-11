@@ -1,15 +1,15 @@
 import json
 
 
-def rawTmdbMovies():
-    return json.load(open('tmdb.json'))
+def rawTmdbMovies(tmdb_source_file):
+    return json.load(open(tmdb_source_file))
 
 
-def writeTmdmMovies(rawMoviesJson, path):
+def writeTmdbMovies(rawMoviesJson, path):
     with open(path, 'w') as f:
         json.dump(rawMoviesJson, f)
 
-def tmdbMovies():
-    tmdbMovies = rawTmdbMovies()
+def tmdbMovies(tmdb_source_file):
+    tmdbMovies = rawTmdbMovies(tmdb_source_file)
     for movieId, tmdbMovie in tmdbMovies.items():
         yield (movieId, tmdbMovie)
