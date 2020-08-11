@@ -1,6 +1,6 @@
 ## Testing TLRE examples
 
-TLRE examples are vunerable to changes in external tooling (Splainer) and Solr itself. So to ensure things are ready to go for training we've scripted these "tests" to check all of the examples.
+TLRE examples are vunerable to changes in external tooling (Splainer, Quepid ) and Solr itself. So to ensure things are ready to go for training we've scripted these "tests" to check all of the examples.
 
 #### Splainer
 
