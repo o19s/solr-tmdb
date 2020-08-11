@@ -2,11 +2,10 @@ from tmdbMovies import tmdbMovies
 from tmdbMovies import writeTmdbMovies
 
 def indexableMovies(tmdb_source_file):
-    """ Generates TMDB movies, similar to how ES Bulk indexing
-        uses a generator to generate bulk index/update actions """
+    """ Generates TMDB movies in Solr JSON format """
 
     for movieId, tmdbMovie in tmdbMovies(tmdb_source_file):
-        print("Indexing %s" % movieId)
+        print("Formatting %s" % movieId)
         try:
             releaseDate = None
             if 'release_date' in tmdbMovie and len(tmdbMovie['release_date']) > 0:
@@ -16,6 +15,7 @@ def indexableMovies(tmdb_source_file):
                    'title': tmdbMovie['title'],
                    'overview': tmdbMovie['overview'],
                    'tagline': tmdbMovie['tagline'],
+                   'poster_path': 'https://image.tmdb.org/t/p/w185' + tmdbMovie['poster_path'],
                    'cast_nomv': " ".join([castMember['name'] for castMember in tmdbMovie['cast']]),
                    'directors': [director['name'] for director in tmdbMovie['directors']],
                    'cast': [castMember['name'] for castMember in tmdbMovie['cast']],

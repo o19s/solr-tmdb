@@ -14,8 +14,10 @@ pip install -r requirements.txt
 
 3. Create the Solr schema formatted JSON file:
 
+Pass in the TMDB extract file and the name of the resulting Solr JSON file.
+
 ```
-python3 createSolrTmdbDataset.py
+python3 createSolrTmdbDataset.py tmdb_2020-08-10.json tmdb_solr_2020-08-11.json
 ```
 
 4. Zip and store the file in the root directory
