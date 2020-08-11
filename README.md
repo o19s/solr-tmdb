@@ -2,25 +2,25 @@ Solr Index for the [The Movie Database](http://themoviedb.com).
 
 This repository is part of the _Think Like a Relevancy Engineer_ training provided by [OpenSource Connections](https://opensourceconnections.com/events/training/).
 
-The code in this repo requires [Python 3](https://www.python.org/downloads/). So if you have both Python 2 and Python 3 installed, you may need to append the version number to your `python` commands or set up an appropriate virtual environment.
+# Download this repo
 
-```
- python3 indexTmdb.py
-```
+Download the zip from https://github.com/o19s/solr-tmdb/archive/master.zip
 
-# Clone this repo
+or clone it:
 
 ```
 git clone https://github.com/o19s/solr-tmdb.git
 ```
 
-After you clone this repo, change into the newly created directory.
+After you have this repo, change into the newly created directory.
 
 # Run Solr index
 
-Two options exist to run Solr.
+Two options exist to run Solr locally, however if neither of them will work for you, we do
+have a public version of this dataset deployed at http://quepid-solr.dev.o19s.com:8985/solr/ that
+you can use during the class as well.
 
-### Docker option (recomended)
+### Docker option (recommended)
 
 If you have [Docker](https://www.docker.com/products/docker-desktop) installed and running.
 
@@ -51,38 +51,13 @@ Regardless of the option you choose, navigate to [http://localhost:8983/solr/](h
 
 # Index TMDB movies
 
-1. Download [tmdb.json](https://o19s-public-datasets.s3.amazonaws.com/tmdb.json)
+Unzip the `tmdb_2020-08-11.json.zip` file first.
 
 ```
-curl -o tmdb.json https://o19s-public-datasets.s3.amazonaws.com/tmdb.json
+curl 'http://localhost:8983/solr/tmdb/update?commit=true' --data-binary @tmdb_solr_2020-08-11.json -H 'Content-type:application/json'
 ```
 
-2. Install the [pysolr](https://github.com/django-haystack/pysolr) library
-
-Recomended: set up a virtual environment.
-
-```
-python3 -m venv venv
-```
-
-then
-
-```
-source venv/bin/activate
-```
-
-Required: install dependencies
-
-```
-pip3 install -r requirements.txt
-```
-
-
-3. Index movies
-
-```
-python3 indexTmdb.py
-```
+You are index a *big 100 mb file*, so this will take up to five minutes!
 
 # Confirm Solr has TMDB movies
 
@@ -90,9 +65,10 @@ Navigate [here](http://localhost:8983/solr/tmdb/select?q=title:lego) and confirm
 
 If you don't see any results, trigger a [manual commit](http://localhost:8983/solr/tmdb/update?commit=true).
 
+
 # Postman
 
-[Postman](https://www.postman.com/) is an API development tool, that helps build, run and manage API requests. The examples from the TLRE slides exist here too as a Postman Collection (`solr-TLRE-postman_collection.json`). We like using Postman becasue it makes tinkering with query parameters nicer and we think it is a useful way to follow along as you learn about tuning search relevance.
+[Postman](https://www.postman.com/) is an API development tool, that helps build, run and manage API requests. The examples from the TLRE slides exist here too as a Postman Collection (`solr-TLRE-postman_collection.json`). We like using Postman because it makes tinkering with query parameters nicer and we think it is a useful way to follow along as you learn about tuning search relevance.
 
 If you want to use Postman during the TLRE class:
 
@@ -102,3 +78,20 @@ If you want to use Postman during the TLRE class:
 4. Tinker with the base URL, Params or JSON Body (optional)
 5. Press 'Send' (blue rectangle button right of URL bar)
 
+# Technical Details
+
+There are some Python 3 scripts for creating the Solr specific JSON file that we index, as well as regression testing the exercises in the TLRE class.  As a class participant you shouldn't need to run them ;-).
+
+## Creating the Solr JSON file
+We periodically [recrawl the TMDB api](http://github.com/o19s/tmdb_dump), and then need to create an updated JSON file of all the data in the Solr format.  
+
+Setup a virtual environment:
+```
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+```
+
+```
+ python3 indexTmdb.py
+```
