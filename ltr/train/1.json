@@ -1,7 +1,0 @@
-{
-  "name": "titleSearch",
-  "class": "org.apache.solr.ltr.feature.SolrFeature",
-  "params": {
-    "q": "{!edismax qf='title'}${keywords}"
-  }
-}
