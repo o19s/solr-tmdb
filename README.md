@@ -73,25 +73,7 @@ If you don't see any results, trigger a [manual commit](http://localhost:8983/so
 If you want to use Postman during the TLRE class:
 
 1. Download [Postman](https://www.postman.com/downloads/) for your OS
-2. Open Postman and Import (top-menu >> File) `solr-TLRE-postman_collection.json`
-3. Define a global variable (grey eye icon in the upper-right) `solr-host` to point to your running Elasticsearch instance (default is `localhost:8983`)
+2. Open Postman and Import (top-menu >> File) `solr_postman_collection.json`
+3. Define a global variable (grey eye icon in the upper-right) `solr-host` to point to your running Solr instance (default is `localhost:8983`)
 4. Tinker with the base URL, Params or JSON Body (optional)
 5. Press 'Send' (blue rectangle button right of URL bar)
-
-# Technical Details
-
-There are some Python 3 scripts for creating the Solr specific JSON file that we index, as well as regression testing the exercises in the TLRE class.  As a class participant you shouldn't need to run them ;-).
-
-## Creating the Solr JSON file
-We periodically [recrawl the TMDB api](http://github.com/o19s/tmdb_dump), and then need to create an updated JSON file of all the data in the Solr format.  
-
-Setup a virtual environment:
-```
-python3 -m venv venv
-source venv/bin/activate
-pip3 install -r requirements.txt
-```
-
-```
- python3 indexTmdb.py
-```
