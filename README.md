@@ -2,6 +2,13 @@ Solr Index for the [The Movie Database](http://themoviedb.com).
 
 This repository is part of the _Think Like a Relevancy Engineer_ training provided by [OpenSource Connections](https://opensourceconnections.com/events/training/).
 
+## Steps to get up and running:
+- Download this repo
+- Install the software (using either Docker or installing manually)
+- Index the TMDB movie data
+- Confirm Solr has the data
+- Install Postman (optional)
+
 # Download this repo
 
 Download the zip from https://github.com/o19s/solr-tmdb/archive/master.zip
@@ -14,7 +21,7 @@ git clone https://github.com/o19s/solr-tmdb.git
 
 After you have this repo, change into the newly created directory.
 
-# Run Solr index
+# Install Solr
 
 Two options exist to run Solr locally, however if neither of them will work for you, we do
 have a public version of this dataset deployed at http://quepid-solr.dev.o19s.com:8985/solr/ that
@@ -68,12 +75,12 @@ If you don't see any results, trigger a [manual commit](http://localhost:8983/so
 
 # Postman
 
-[Postman](https://www.postman.com/) is an API development tool, that helps build, run and manage API requests. The examples from the TLRE slides exist here too as a Postman Collection (`solr-TLRE-postman_collection.json`). We like using Postman because it makes tinkering with query parameters nicer and we think it is a useful way to follow along as you learn about tuning search relevance.
+[Postman](https://www.postman.com/) is an API development tool, that helps build, run and manage API requests. The examples from the TLRE slides exist here too as a Postman Collection (`solr-postman_collection.json`). We like using Postman because it makes tinkering with query parameters nicer and we think it is a useful way to follow along as you learn about tuning search relevance.
 
 If you want to use Postman during the TLRE class:
 
 1. Download [Postman](https://www.postman.com/downloads/) for your OS
-2. Open Postman and Import (top-menu >> File) `solr_postman_collection.json`
-3. Define a global variable (grey eye icon in the upper-right) `solr-host` to point to your running Solr instance (default is `localhost:8983`)
+2. Open Postman and Import (top-menu >> File) `solr-postman-collection.json`
+3. Define a global variable (grey eye icon in the upper-right) `solr_host` to point to your running Solr instance (default is `localhost:8983`)
 4. Tinker with the base URL, Params or JSON Body (optional)
 5. Press 'Send' (blue rectangle button right of URL bar)
