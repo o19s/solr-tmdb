@@ -1,6 +1,6 @@
 # Testing TLRE examples
 
-TLRE examples are vunerable to changes in external tooling (Splainer, Quepid ) and Solr itself. So to ensure things are ready to go for training we've scripted these "tests" to check all of the examples.
+TLRE examples are vunerable to changes in external tooling (Splainer, Quepid) and Solr itself. So to ensure things are ready to go for training we've scripted these "tests" to check all of the examples.
 
 ## Splainer
 
@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 Run regression tests
 ```
-python splainer_puppet_solr.py
+python3 splainer_puppet_solr.py
 ```
 
 This will record the status code in the CSV file and print the number of failed queries to console.

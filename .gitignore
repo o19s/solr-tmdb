@@ -9,3 +9,4 @@ bin/
 .idea/
 *.cfg
 .DS*
+__pycache__
