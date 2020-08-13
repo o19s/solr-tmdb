@@ -7,9 +7,6 @@ def indexableMovies(tmdb_source_file):
     for movieId, tmdbMovie in tmdbMovies(tmdb_source_file):
         print("Formatting %s" % movieId)
         try:
-            releaseDate = None
-            if 'release_date' in tmdbMovie and len(tmdbMovie['release_date']) > 0:
-                releaseDate = tmdbMovie['release_date'] + 'T00:00:00Z'
 
             yield {'id': movieId,
                    'title': tmdbMovie['title'],
@@ -20,7 +17,7 @@ def indexableMovies(tmdb_source_file):
                    'directors': [director['name'] for director in tmdbMovie['directors']],
                    'cast': [castMember['name'] for castMember in tmdbMovie['cast']],
                    'genres': [genre['name'] for genre in tmdbMovie['genres']],
-                   'release_date': releaseDate,
+                   'release_date': tmdbMovie['release_date'] + 'T00:00:00Z',
                    'vote_average': tmdbMovie['vote_average'] if 'vote_average' in tmdbMovie else None,
                    'vote_count': int(tmdbMovie['vote_count']) if 'vote_count' in tmdbMovie else None,
                    }
