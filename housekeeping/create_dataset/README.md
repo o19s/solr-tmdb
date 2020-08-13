@@ -9,14 +9,14 @@ Periodically we update the TMDB dataset as new movies come out, or new data sour
 Pass in the TMDB extract file and the name of the resulting Solr JSON file.
 
 ```
-python3 createSolrTmdbDataset.py tmdb_2020-08-10.json tmdb_solr_2020-08-13.json
+python3 createSolrTmdbDataset.py tmdb_2020-08-10.json tmdb_solr.json
 ```
 
 3. Zip and store the file in the root directory
 
 ```
-zip tmdb_solr_2020-08-12.json.zip tmdb_solr_2020-08-12.json
-cp ../../tmdb_solr_2020-08-12.json.zip
+zip tmdb_solr.json.zip tmdb_solr.json
+cp ../../
 ```
 
 

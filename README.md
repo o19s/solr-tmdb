@@ -58,13 +58,19 @@ Regardless of the option you choose, navigate to [http://localhost:8983/solr/](h
 
 # Index TMDB movies
 
-Unzip the `tmdb_2020-08-11.json.zip` file first.
+Unzip the `tmdb_solr.json.zip` file first.
 
 ```
-curl 'http://localhost:8983/solr/tmdb/update?commit=true' --data-binary @tmdb_solr_2020-08-11.json -H 'Content-type:application/json'
+unzip tmdb_solr.json.zip
 ```
 
-You are index a *big 100 mb file*, so this will take up to five minutes!
+Then send the unzipped `tmdb_solr.json` into Solr.
+
+```
+curl 'http://localhost:8983/solr/tmdb/update?commit=true' --data-binary @tmdb_solr.json -H 'Content-type:application/json'
+```
+
+You are indexing a *big 100 mb file*, so this will take up to five minutes!
 
 # Confirm Solr has TMDB movies
 
