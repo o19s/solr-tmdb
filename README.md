@@ -67,6 +67,12 @@ unzip tmdb_solr.json.zip
 Then send the unzipped `tmdb_solr.json` into Solr.
 
 ```
+./index.sh
+```
+
+or
+
+```
 curl 'http://localhost:8983/solr/tmdb/update?commit=true' --data-binary @tmdb_solr.json -H 'Content-type:application/json'
 ```
 

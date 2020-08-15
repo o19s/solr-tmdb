@@ -1,5 +1,6 @@
 housekeeping/create_dataset/*.json
 tmdb_solr*.json
+solr_home/tmdb/conf/*
 venv
 *.pyc
 tmdb.json
