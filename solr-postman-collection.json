@@ -1,0 +1,1594 @@
+{
+	"info": {
+		"_postman_id": "167f7cbb-44db-41e6-980c-a1a9643cf545",
+		"name": "solr-TLRE",
+		"description": "Solr requests from Day2 of the TLRE workshop\nNumbered {deck #}-{request # within deck}",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1-Standard query parser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/query?q=rambo",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"query"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "rambo"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1-eDisMax query parser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/query?q=rambo&defType=edismax",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"query"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "rambo"
+						},
+						{
+							"key": "defType",
+							"value": "edismax"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1-custom request handler with eDisMax as default",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/movie_search?q=rambo",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"movie_search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "rambo"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1-eDisMax common params",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/movie_search?q=rambo&rows=10&qf=title overview tagline&fl=title  cast&debug=true",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"movie_search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "rambo",
+							"description": "Query "
+						},
+						{
+							"key": "rows",
+							"value": "10",
+							"description": "Number of results returned"
+						},
+						{
+							"key": "qf",
+							"value": "title overview tagline",
+							"description": "Fields to query against (maybe per field boosting too)"
+						},
+						{
+							"key": "fl",
+							"value": "title  cast",
+							"description": "Fields to show in results"
+						},
+						{
+							"key": "debug",
+							"value": "true",
+							"description": "Returns the math calculations from the engine"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1-eDisMax query specific fields",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/movie_search?q=cast:(rambo)&fl=title tagline cast",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"movie_search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "cast:(rambo)",
+							"description": "Only check if \"rambo\" is in the `cast` field"
+						},
+						{
+							"key": "fl",
+							"value": "title tagline cast"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2-Will Smith baseline query",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/movie_search?q=will smoth&qf=cast&fl=title tagline cast",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"movie_search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "will smoth"
+						},
+						{
+							"key": "qf",
+							"value": "cast"
+						},
+						{
+							"key": "fl",
+							"value": "title tagline cast",
+							"description": "Only see a subset of fields"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2-Will Smith custom field",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/movie_search?q=will smith&qf=text_people&fl=title tagline cast",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"movie_search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "will smith"
+						},
+						{
+							"key": "qf",
+							"value": "text_people"
+						},
+						{
+							"key": "fl",
+							"value": "title tagline cast",
+							"description": "Only see a subset of fields"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3-boost release recency",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select?q=will smith&qf=text_people&fl=title cast release_date&bf=recip(ms(NOW,release_date),3.16e-11,10,1)",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "will smith"
+						},
+						{
+							"key": "qf",
+							"value": "text_people"
+						},
+						{
+							"key": "fl",
+							"value": "title cast release_date"
+						},
+						{
+							"key": "bf",
+							"value": "recip(ms(NOW,release_date),3.16e-11,10,1)",
+							"description": "Boost recenct"
+						}
+					]
+				},
+				"description": "Yearly date boosting strategy using Solr's `recip()`."
+			},
+			"response": []
+		},
+		{
+			"name": "3-boost 100% match",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select?q=will smith&qf=text_people&fl=title tagline cast&bq={!edismax qf=text_people mm=100% v=$q}",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "will smith"
+						},
+						{
+							"key": "qf",
+							"value": "text_people"
+						},
+						{
+							"key": "fl",
+							"value": "title tagline cast",
+							"description": "Only see a subset of fields"
+						},
+						{
+							"key": "bq",
+							"value": "{!edismax qf=text_people mm=100% v=$q}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3-boost by recency IF 100% match",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select?fl=title release_date cast&defType=edismax&q=harrison ford&qf=text_all&peopleQuery={!edismax bf='' bq='' qf=text_people mm=100% v=$q}&dateBoost=recip(ms(NOW,release_date),3.17e-11,10,1)&bf=if(query($peopleQuery),$dateBoost,0)",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select"
+					],
+					"query": [
+						{
+							"key": "fl",
+							"value": "title release_date cast",
+							"description": "Only see a subset of fields"
+						},
+						{
+							"key": "defType",
+							"value": "edismax"
+						},
+						{
+							"key": "q",
+							"value": "harrison ford"
+						},
+						{
+							"key": "qf",
+							"value": "text_all"
+						},
+						{
+							"key": "peopleQuery",
+							"value": "{!edismax bf='' bq='' qf=text_people mm=100% v=$q}",
+							"description": "defining a new variable on the fly"
+						},
+						{
+							"key": "dateBoost",
+							"value": "recip(ms(NOW,release_date),3.17e-11,10,1)",
+							"description": "defining another new variable on the fly"
+						},
+						{
+							"key": "bf",
+							"value": "if(query($peopleQuery),$dateBoost,0)",
+							"description": "using the new variables in a conditional"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3-boost MORE if 100% match Copy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select?fl=title release_date cast&defType=edismax&q=harrison ford&qf=text_all&peopleQuery={!field bf='' bq='' f=text_people mm=100% v=$q}&dateBoost=recip(ms(NOW,release_date),3.17e-11,10,1)&prodDateBoost=product(10000,$dateBoost)&totalDateBoost=if(query($peopleQuery),$prodDateBoost,0)&bf=$totalDateBoost",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select"
+					],
+					"query": [
+						{
+							"key": "fl",
+							"value": "title release_date cast",
+							"description": "Only see a subset of fields"
+						},
+						{
+							"key": "defType",
+							"value": "edismax"
+						},
+						{
+							"key": "q",
+							"value": "harrison ford"
+						},
+						{
+							"key": "qf",
+							"value": "text_all"
+						},
+						{
+							"key": "peopleQuery",
+							"value": "{!field bf='' bq='' f=text_people mm=100% v=$q}",
+							"description": "defining a new variable on the fly"
+						},
+						{
+							"key": "dateBoost",
+							"value": "recip(ms(NOW,release_date),3.17e-11,10,1)",
+							"description": "defining another new variable on the fly"
+						},
+						{
+							"key": "prodDateBoost",
+							"value": "product(10000,$dateBoost)"
+						},
+						{
+							"key": "totalDateBoost",
+							"value": "if(query($peopleQuery),$prodDateBoost,0)"
+						},
+						{
+							"key": "bf",
+							"value": "$totalDateBoost",
+							"description": "using Solr's built in function product() to add some more empahsis"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3-combine scores",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select?fl=title release_date cast&defType=edismax&q=star wars&qf=text_all&bf=if($titleQuery,product(100,vote_average),0)&peopleQuery={!field bf='' bq='' f=text_people mm=100% v=$q}&dateBoost=recip(ms(NOW,release_date),3.17e-11,10,1)&prodDateBoost=product(10000,$dateBoost)&totalDateBoost=if(query($peopleQuery),$prodDateBoost,0)&bf=$totalDateBoost&titleQuery={!edismax mm=100%25 qf=title bq='' bf='' v=$q}&tie=1.0",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select"
+					],
+					"query": [
+						{
+							"key": "fl",
+							"value": "title release_date cast",
+							"description": "Only see a subset of fields"
+						},
+						{
+							"key": "defType",
+							"value": "edismax"
+						},
+						{
+							"key": "q",
+							"value": "star wars"
+						},
+						{
+							"key": "qf",
+							"value": "text_all"
+						},
+						{
+							"key": "bf",
+							"value": "if($titleQuery,product(100,vote_average),0)"
+						},
+						{
+							"key": "peopleQuery",
+							"value": "{!field bf='' bq='' f=text_people mm=100% v=$q}",
+							"description": "defining a new variable on the fly"
+						},
+						{
+							"key": "dateBoost",
+							"value": "recip(ms(NOW,release_date),3.17e-11,10,1)",
+							"description": "defining another new variable on the fly"
+						},
+						{
+							"key": "prodDateBoost",
+							"value": "product(10000,$dateBoost)"
+						},
+						{
+							"key": "totalDateBoost",
+							"value": "if(query($peopleQuery),$prodDateBoost,0)"
+						},
+						{
+							"key": "bf",
+							"value": "$totalDateBoost",
+							"description": "using Solr's built in function product() to add some more empahsis"
+						},
+						{
+							"key": "titleQuery",
+							"value": "{!edismax mm=100%25 qf=title bq='' bf='' v=$q}"
+						},
+						{
+							"key": "tie",
+							"value": "1.0"
+						},
+						{
+							"key": "boost",
+							"value": "sum(1,$dateBoost)",
+							"description": "alt1",
+							"disabled": true
+						},
+						{
+							"key": "voteBoost",
+							"value": "scale(vote_average,1,0)",
+							"description": "alt2",
+							"disabled": true
+						},
+						{
+							"key": "boost",
+							"value": "$voteBoost",
+							"description": "alt2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3-coexisting boosts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select?fl=title release_date cast&defType=edismax&q=star wars&qf=text_all&peopleQuery={!field bf='' bq='' f=text_people mm=100% v=$q}&titleQuery={!edismax mm=100%25 qf=title bq='' bf='' v=$q}&bf=if($titleQuery,product(100,vote_average),0)&bf=product($dateBoost,query($peopleQuery))&dateBoost=recip(ms(NOW,release_date),3.17e-11,10,1)&tie=1.0",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select"
+					],
+					"query": [
+						{
+							"key": "fl",
+							"value": "title release_date cast",
+							"description": "Only see a subset of fields"
+						},
+						{
+							"key": "defType",
+							"value": "edismax"
+						},
+						{
+							"key": "q",
+							"value": "star wars"
+						},
+						{
+							"key": "qf",
+							"value": "text_all"
+						},
+						{
+							"key": "peopleQuery",
+							"value": "{!field bf='' bq='' f=text_people mm=100% v=$q}",
+							"description": "defining a new variable on the fly"
+						},
+						{
+							"key": "titleQuery",
+							"value": "{!edismax mm=100%25 qf=title bq='' bf='' v=$q}"
+						},
+						{
+							"key": "bf",
+							"value": "if($titleQuery,product(100,vote_average),0)"
+						},
+						{
+							"key": "bf",
+							"value": "product($dateBoost,query($peopleQuery))",
+							"description": "using Solr's built in function product() to add some more empahsis"
+						},
+						{
+							"key": "dateBoost",
+							"value": "recip(ms(NOW,release_date),3.17e-11,10,1)",
+							"description": "defining another new variable on the fly"
+						},
+						{
+							"key": "tie",
+							"value": "1.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3-Lab vote-count",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select?fl=title release_date cast&defType=edismax&q=star wars&qf=text_all&peopleQuery={!field bf='' bq='' f=text_people mm=100% v=$q}&dateBoost=recip(ms(NOW,release_date),3.17e-11,10,1)&bf=if(query($peopleQuery),product($dateBoost,100),0)&bf=product($titleSearch,pow(vote_average,2))&titleSearch={!edismax mm=100%25 qf=title bq='' bf='' v=$q}&tie=1.0",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select"
+					],
+					"query": [
+						{
+							"key": "fl",
+							"value": "title release_date cast",
+							"description": "Only see a subset of fields"
+						},
+						{
+							"key": "defType",
+							"value": "edismax"
+						},
+						{
+							"key": "q",
+							"value": "star wars"
+						},
+						{
+							"key": "qf",
+							"value": "text_all"
+						},
+						{
+							"key": "peopleQuery",
+							"value": "{!field bf='' bq='' f=text_people mm=100% v=$q}",
+							"description": "defining a new variable on the fly"
+						},
+						{
+							"key": "dateBoost",
+							"value": "recip(ms(NOW,release_date),3.17e-11,10,1)",
+							"description": "defining another new variable on the fly"
+						},
+						{
+							"key": "bf",
+							"value": "if(query($peopleQuery),product($dateBoost,100),0)",
+							"description": "using Solr's built in function product() to add some more empahsis"
+						},
+						{
+							"key": "bf",
+							"value": "product($titleSearch,pow(vote_average,2))"
+						},
+						{
+							"key": "titleSearch",
+							"value": "{!edismax mm=100%25 qf=title bq='' bf='' v=$q}"
+						},
+						{
+							"key": "tie",
+							"value": "1.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3-re-rank for performance",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select?fl=title release_date cast&defType=edismax&q=star wars&qf=text_all&bf=if($titleQuery,product(100,vote_average),0)&peopleQuery={!field bf='' bq='' f=text_people mm=100% v=$q}&titleQuery={!edismax mm=100% qf=title bq='' bf='' v=$q}&tie=1.0&titleBoost=if(query($titleQuery),100,0)&rq={!rerank reRankQuery=$titleBoost reRankDocs=1000 reRankWeight=3}",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select"
+					],
+					"query": [
+						{
+							"key": "fl",
+							"value": "title release_date cast",
+							"description": "Only see a subset of fields"
+						},
+						{
+							"key": "defType",
+							"value": "edismax"
+						},
+						{
+							"key": "q",
+							"value": "star wars"
+						},
+						{
+							"key": "qf",
+							"value": "text_all"
+						},
+						{
+							"key": "bf",
+							"value": "if($titleQuery,product(100,vote_average),0)"
+						},
+						{
+							"key": "peopleQuery",
+							"value": "{!field bf='' bq='' f=text_people mm=100% v=$q}",
+							"description": "defining a new variable on the fly"
+						},
+						{
+							"key": "titleQuery",
+							"value": "{!edismax mm=100% qf=title bq='' bf='' v=$q}"
+						},
+						{
+							"key": "tie",
+							"value": "1.0"
+						},
+						{
+							"key": "titleBoost",
+							"value": "if(query($titleQuery),100,0)"
+						},
+						{
+							"key": "rq",
+							"value": "{!rerank reRankQuery=$titleBoost reRankDocs=1000 reRankWeight=3}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4-Bidirectional synonyms",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select?fl=title overview&defType=edismax&q=bride&qf=title_bidirect_syn",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select"
+					],
+					"query": [
+						{
+							"key": "fl",
+							"value": "title overview"
+						},
+						{
+							"key": "defType",
+							"value": "edismax"
+						},
+						{
+							"key": "q",
+							"value": "bride"
+						},
+						{
+							"key": "qf",
+							"value": "title_bidirect_syn",
+							"description": "Relies on how the field was defined"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4-Directional synonyms",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select?fl=title overview&defType=edismax&q=bride&qf=title_directed_syn",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select"
+					],
+					"query": [
+						{
+							"key": "fl",
+							"value": "title overview"
+						},
+						{
+							"key": "defType",
+							"value": "edismax"
+						},
+						{
+							"key": "q",
+							"value": "bride"
+						},
+						{
+							"key": "qf",
+							"value": "title_directed_syn",
+							"description": "Relies on how the field was defined"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4-Legacy behavior SOW=true",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select?fl=title overview tagline&defType=edismax&q=best sci fi movie&qf=title_ws_syn overview_ws_syn tagline_ws_syn&tie=1.0",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select"
+					],
+					"query": [
+						{
+							"key": "fl",
+							"value": "title overview tagline"
+						},
+						{
+							"key": "defType",
+							"value": "edismax"
+						},
+						{
+							"key": "q",
+							"value": "best sci fi movie"
+						},
+						{
+							"key": "qf",
+							"value": "title_ws_syn overview_ws_syn tagline_ws_syn",
+							"description": "Relies on how the field was defined"
+						},
+						{
+							"key": "tie",
+							"value": "1.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4-New behavior SOW=false",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select?fl=title overview tagline&defType=edismax&q=best sci fi movie&qf=title_auto_phrase_syn overview_auto_phrase_syn tagline_auto_phrase_syn&tie=1.0&sow=false",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select"
+					],
+					"query": [
+						{
+							"key": "fl",
+							"value": "title overview tagline"
+						},
+						{
+							"key": "defType",
+							"value": "edismax"
+						},
+						{
+							"key": "q",
+							"value": "best sci fi movie"
+						},
+						{
+							"key": "qf",
+							"value": "title_auto_phrase_syn overview_auto_phrase_syn tagline_auto_phrase_syn",
+							"description": "Relies on how the field was defined"
+						},
+						{
+							"key": "tie",
+							"value": "1.0"
+						},
+						{
+							"key": "sow",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4-Lab-idiomatic",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select?fl=id title overview tagline&defType=edismax&q=sci fi movie&qf=text_all_idioms&pf=text_all_idioms&tie=1.0&stopwords=true",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select"
+					],
+					"query": [
+						{
+							"key": "fl",
+							"value": "id title overview tagline"
+						},
+						{
+							"key": "defType",
+							"value": "edismax"
+						},
+						{
+							"key": "q",
+							"value": "sci fi movie"
+						},
+						{
+							"key": "qf",
+							"value": "text_all_idioms",
+							"description": "Relies on how the field was defined"
+						},
+						{
+							"key": "pf",
+							"value": "text_all_idioms"
+						},
+						{
+							"key": "tie",
+							"value": "1.0"
+						},
+						{
+							"key": "stopwords",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4-Lab-idiomatic problems",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select?fl=title overview tagline&defType=edismax&q=\"science movie\"&qf=text_all_idioms&tie=1.0&sow=false&pf=text_all_idioms",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select"
+					],
+					"query": [
+						{
+							"key": "fl",
+							"value": "title overview tagline"
+						},
+						{
+							"key": "defType",
+							"value": "edismax"
+						},
+						{
+							"key": "q",
+							"value": "\"science movie\""
+						},
+						{
+							"key": "qf",
+							"value": "text_all_idioms",
+							"description": "Relies on how the field was defined"
+						},
+						{
+							"key": "tie",
+							"value": "1.0"
+						},
+						{
+							"key": "sow",
+							"value": "false"
+						},
+						{
+							"key": "pf",
+							"value": "text_all_idioms"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4-Managed synonyms List",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/schema/analysis/synonyms/english",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"schema",
+						"analysis",
+						"synonyms",
+						"english"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4-Managed synonyms Add",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"funny\": [\"haha\", \"lol\", \"LOL\"]}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/schema/analysis/synonyms/english",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"schema",
+						"analysis",
+						"synonyms",
+						"english"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4-Managed synonyms Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/schema/analysis/synonyms/english/funny",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"schema",
+						"analysis",
+						"synonyms",
+						"english",
+						"funny"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4-Managed resources",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/admin/collections?action=RELOAD&name=tmdb",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"admin",
+						"collections"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "RELOAD",
+							"description": "Only will work in SolrCloud mode"
+						},
+						{
+							"key": "name",
+							"value": "tmdb"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6-LTR",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/select/?q=rambo&defType=edismax&qf=text_all&rq={!ltr model='doug_6' efi.keywords='Rambo' rerankDocs=100, rerankWeight=1}&fl=title",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"select",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "rambo"
+						},
+						{
+							"key": "defType",
+							"value": "edismax"
+						},
+						{
+							"key": "qf",
+							"value": "text_all"
+						},
+						{
+							"key": "rq",
+							"value": "{!ltr model='doug_6' efi.keywords='Rambo' rerankDocs=100, rerankWeight=1}"
+						},
+						{
+							"key": "fl",
+							"value": "title"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

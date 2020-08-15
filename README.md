@@ -2,25 +2,32 @@ Solr Index for the [The Movie Database](http://themoviedb.com).
 
 This repository is part of the _Think Like a Relevancy Engineer_ training provided by [OpenSource Connections](https://opensourceconnections.com/events/training/).
 
-The code in this repo requires [Python 3](https://www.python.org/downloads/). So if you have both Python 2 and Python 3 installed, you may need to append the version number to your `python` commands or set up an appropriate virtual environment.
+## Steps to get up and running:
+- Download this repo
+- Install the software (using either Docker or installing manually)
+- Index the TMDB movie data
+- Confirm Solr has the data
+- Install Postman (optional)
 
-```
- python3 indexTmdb.py
-```
+# Download this repo
 
-# Clone this repo
+Download the zip from https://github.com/o19s/solr-tmdb/archive/master.zip
+
+or clone it:
 
 ```
 git clone https://github.com/o19s/solr-tmdb.git
 ```
 
-After you clone this repo, change into the newly created directory.
+After you have this repo, change into the newly created directory.
 
-# Run Solr index
+# Install Solr
 
-Two options exist to run Solr.
+Two options exist to run Solr locally, however if neither of them will work for you, we do
+have a public version of this dataset deployed at http://quepid-solr.dev.o19s.com:8985/solr/ that
+you can use during the class as well.
 
-### Docker option (recomended)
+### Docker option (recommended)
 
 If you have [Docker](https://www.docker.com/products/docker-desktop) installed and running.
 
@@ -51,38 +58,25 @@ Regardless of the option you choose, navigate to [http://localhost:8983/solr/](h
 
 # Index TMDB movies
 
-1. Download [tmdb.json](https://o19s-public-datasets.s3.amazonaws.com/tmdb.json)
+Unzip the `tmdb_solr.json.zip` file first.
 
 ```
-curl -o tmdb.json https://o19s-public-datasets.s3.amazonaws.com/tmdb.json
+unzip tmdb_solr.json.zip
 ```
 
-2. Install the [pysolr](https://github.com/django-haystack/pysolr) library
-
-Recomended: set up a virtual environment.
+Then send the unzipped `tmdb_solr.json` into Solr.
 
 ```
-python3 -m venv venv
+./index.sh
 ```
 
-then
+or
 
 ```
-source venv/bin/activate
+curl 'http://localhost:8983/solr/tmdb/update?commit=true' --data-binary @tmdb_solr.json -H 'Content-type:application/json'
 ```
 
-Required: install dependencies
-
-```
-pip3 install -r requirements.txt
-```
-
-
-3. Index movies
-
-```
-python3 indexTmdb.py
-```
+You are indexing a *big 100 mb file*, so this will take up to five minutes!
 
 # Confirm Solr has TMDB movies
 
@@ -90,15 +84,15 @@ Navigate [here](http://localhost:8983/solr/tmdb/select?q=title:lego) and confirm
 
 If you don't see any results, trigger a [manual commit](http://localhost:8983/solr/tmdb/update?commit=true).
 
+
 # Postman
 
-[Postman](https://www.postman.com/) is an API development tool, that helps build, run and manage API requests. The examples from the TLRE slides exist here too as a Postman Collection (`solr-TLRE-postman_collection.json`). We like using Postman becasue it makes tinkering with query parameters nicer and we think it is a useful way to follow along as you learn about tuning search relevance.
+[Postman](https://www.postman.com/) is an API development tool, that helps build, run and manage API requests. The examples from the TLRE slides exist here too as a Postman Collection (`solr-postman_collection.json`). We like using Postman because it makes tinkering with query parameters nicer and we think it is a useful way to follow along as you learn about tuning search relevance.
 
 If you want to use Postman during the TLRE class:
 
 1. Download [Postman](https://www.postman.com/downloads/) for your OS
-2. Open Postman and Import (top-menu >> File) `solr-TLRE-postman_collection.json`
-3. Define a global variable (grey eye icon in the upper-right) `solr-host` to point to your running Elasticsearch instance (default is `localhost:8983`)
+2. Open Postman and Import (top-menu >> File) `solr-postman-collection.json`
+3. Define a global variable (grey eye icon in the upper-right) `solr_host` to point to your running Solr instance (default is `localhost:8983`)
 4. Tinker with the base URL, Params or JSON Body (optional)
 5. Press 'Send' (blue rectangle button right of URL bar)
-
