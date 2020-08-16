@@ -16,8 +16,10 @@ python3 createSolrTmdbDataset.py tmdb_2020-08-10.json tmdb_solr.json
 
 ```
 zip tmdb_solr.json.zip tmdb_solr.json
-cp ../../
+cp tmdb_solr.json ../../
 ```
+
+4. Don't forget to check the new zip file in!
 
 
 https://raw.githubusercontent.com/o19s/tmdb_dump/master/tmdb_dataflows.png
