@@ -4,43 +4,37 @@ This repository is part of the _Think Like a Relevancy Engineer_ training provid
 
 ## Steps to get up and running:
 - Download this repo
-- Install the software (using either Docker or installing manually)
+- Install Solr search engine and configuration (using either Docker or installing manually)
 - Index the TMDB movie data
 - Confirm Solr has the data
 - Install Postman (optional)
 
 # Download this repo
 
-Download the zip from https://github.com/o19s/solr-tmdb/archive/master.zip
+Download the zip from https://github.com/o19s/solr-tmdb/archive/master.zip, and
+you will get the file `solr-tmdb-master.zip`.  Unzip this file, resulting in the
+directory `solr-tmdb-master`.
 
-or clone it:
 
-```
-git clone https://github.com/o19s/solr-tmdb.git
-```
-
-After you have this repo, change into the newly created directory.
+After you have this download, change into the newly created directory.
 
 # Install Solr
 
 Two options exist to run Solr locally, however if neither of them will work for you, we do
 have a public version of this dataset deployed at http://quepid-solr.dev.o19s.com:8985/solr/ that
-you can use during the class as well.
+you can use during the class as well, so don't fret if your environment won't let you set up Solr!
 
 ### Docker option (recommended)
 
 If you have [Docker](https://www.docker.com/products/docker-desktop) installed and running.
 
-```
-./docker.sh
-```
+
+> ./docker.sh
 
 or
 
-```
-docker pull solr:8.4.1
-docker run -p 8983:8983 -v $(pwd)/solr_home:/opt/mysolrhome -e SOLR_HOME=/opt/mysolrhome -e INIT_SOLR_HOME=yes solr:8.4.1
-```
+> docker run -p 8983:8983 -v $(pwd)/solr_home:/opt/mysolrhome -e SOLR_HOME=/opt/mysolrhome -e INIT_SOLR_HOME=yes solr:8.4.1
+
 
 ### Local option
 
@@ -48,11 +42,14 @@ docker run -p 8983:8983 -v $(pwd)/solr_home:/opt/mysolrhome -e SOLR_HOME=/opt/my
 
 2. Navigate into the newly unzipped directory.
 
-3. Run Solr pointing at the Solr Home directory included in this repo.
+3. Run Solr pointing at the TMDB Solr Home directory included in this repo.
 
-```
-bin/solr start -f -s /path/to/solr-tmdb/solr_home/
-```
+Linux:
+>bin/solr start -f -s /path/to/solr-tmdb-master/solr_home/
+
+Windows 10:
+>bin\solr start -f -s \path\to\solr-tmdb-master\solr_home\
+
 
 Regardless of the option you choose, navigate to [http://localhost:8983/solr/](http://localhost:8983/solr/) to confirm Solr is running.
 
@@ -66,15 +63,13 @@ unzip tmdb_solr.json.zip
 
 Then send the unzipped `tmdb_solr.json` into Solr.
 
-```
-./index.sh
-```
+Linux:
+> ./index.sh
 
-or
+Windows 10:
+> powershell index.ps1
 
-```
-curl 'http://localhost:8983/solr/tmdb/update?commit=true' --data-binary @tmdb_solr.json -H 'Content-type:application/json'
-```
+_If you get a permissions error, just open the index.ps1 file and copy and paste the contents into your Powershell console_
 
 You are indexing a *big 100 mb file*, so this will take up to five minutes!
 
