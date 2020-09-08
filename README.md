@@ -28,12 +28,11 @@ you can use during the class as well, so don't fret if your environment won't le
 
 If you have [Docker](https://www.docker.com/products/docker-desktop) installed and running.
 
-
+Linux:
 > ./docker.sh
 
-or
-
-> docker run -p 8983:8983 -v $(pwd)/solr_home:/opt/mysolrhome -e SOLR_HOME=/opt/mysolrhome -e INIT_SOLR_HOME=yes solr:8.4.1
+Windows:
+> powershell docker.ps1
 
 
 ### Local option
