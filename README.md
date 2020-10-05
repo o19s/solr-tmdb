@@ -70,7 +70,7 @@ Windows 10:
 
 _If you get a permissions error, just open the index.ps1 file and copy and paste the contents into your Powershell console_
 
-You are indexing a *big 100 mb file*, so this will take up to five minutes!
+You are indexing a *big 100 mb file*, so this will take up to fifteen minutes!
 
 # Confirm Solr has TMDB movies
 
