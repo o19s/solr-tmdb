@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 if [ ! -f ./tmdb_solr.json ]; then
   unzip tmdb_solr.json.zip
 fi
