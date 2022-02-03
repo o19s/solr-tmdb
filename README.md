@@ -28,7 +28,7 @@ you can use during the class as well, so don't fret if your environment won't le
 
 If you have [Docker](https://www.docker.com/products/docker-desktop) installed and running.
 
-Linux:
+Linux/OSX:
 > ./docker.sh
 
 Windows:
@@ -43,34 +43,27 @@ Windows:
 
 3. Run Solr pointing at the TMDB Solr Home directory included in this repo.
 
-Linux:
+Linux/OSX:
 >bin/solr start -f -s /path/to/solr-tmdb-master/solr_home/
 
-Windows 10:
+Windows:
 >bin\solr start -f -s \path\to\solr-tmdb-master\solr_home\
 
 
 Regardless of the option you choose, navigate to [http://localhost:8983/solr/](http://localhost:8983/solr/) to confirm Solr is running.
 
 # Index TMDB movies
+We have a movie data corpus sourced from The Movie Database (similar data to IMDB (Internet Movie Database).
 
-Unzip the `tmdb_solr.json.zip` file first.
-
-```
-unzip tmdb_solr.json.zip
-```
-
-Then send the unzipped `tmdb_solr.json` into Solr.
-
-Linux:
+Linux/OSX:
 > ./index.sh
 
-Windows 10:
+Windows:
 > powershell index.ps1
 
 _If you get a permissions error, just open the index.ps1 file and copy and paste the contents into your Powershell console_
 
-You are indexing a *big 100 mb file*, so this will take up to five minutes!
+You are indexing a *12 mb JSON file*, so this will take a minute!
 
 # Confirm Solr has TMDB movies
 
