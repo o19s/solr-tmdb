@@ -37,7 +37,7 @@ Windows:
 
 ### Local option
 
-1. Download and unpack [Solr 8.4.1](https://archive.apache.org/dist/lucene/solr/8.4.1/solr-8.4.1.zip)
+1. Download and unpack [Solr 8.11.1](https://archive.apache.org/dist/lucene/solr/8.11.1/solr-8.11.1.tgz)
 
 2. Navigate into the newly unzipped directory.
 
