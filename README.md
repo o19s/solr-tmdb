@@ -41,7 +41,9 @@ Windows:
 
 2. Navigate into the newly unzipped directory.
 
-3. Run Solr pointing at the TMDB Solr Home directory included in this repo.
+3. Open `/path/to/solr-tmdb-master/solr_home/tmdb/conf/solrconfig.xml` and change the path to include the extra libraries located in `/path/to/solr-tmdb-master/docker/lib`. 
+
+4. Run Solr pointing at the TMDB Solr Home directory included in this repo.
 
 Linux/OSX:
 >bin/solr start -f -s /path/to/solr-tmdb-master/solr_home/
@@ -53,7 +55,7 @@ Windows:
 Regardless of the option you choose, navigate to [http://localhost:8983/solr/](http://localhost:8983/solr/) to confirm Solr is running.
 
 # Index TMDB movies
-We have a movie data corpus sourced from The Movie Database (similar data to IMDB (Internet Movie Database).
+We have a movie data corpus sourced from The Movie Database, similar data to IMDB (Internet Movie Database).
 
 Linux/OSX:
 > ./index.sh

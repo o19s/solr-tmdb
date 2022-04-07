@@ -6,4 +6,4 @@ if [ "$(uname -s)" == 'Linux' ]; then
    sudo chown -R 8983:8983 solr_home   
 fi
 
-docker run -p 8983:8983 -v "${PWD}/solr_home:/opt/mysolrhome" -e SOLR_HOME=/opt/mysolrhome -e INIT_SOLR_HOME=yes solr:8.11.1
+docker-compose up -d
