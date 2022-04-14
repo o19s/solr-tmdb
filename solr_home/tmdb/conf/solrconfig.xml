@@ -1442,6 +1442,15 @@
       </lst>
 
       <!--
+        Send the logging information from rewriter 'replace_prelive' to sink
+        'responseSink':
+      -->
+      <lst name="mapping">
+        <str name="rewriter">replace_prelive</str>
+        <str name="sink">responseSink</str>
+      </lst>
+
+      <!--
         Send the logging information from rewriter 'replace' to sink
         'responseSink':
       -->
@@ -1449,6 +1458,16 @@
         <str name="rewriter">replace</str>
         <str name="sink">responseSink</str>
       </lst>
+
+      <!--
+        Send the logging information from rewriter 'common_rules_prelive' to sink
+        'responseSink' too:
+      -->
+      <lst name="mapping">
+        <str name="rewriter">common_rules_prelive</str>
+        <str name="sink">responseSink</str>
+      </lst>
+
       <!--
         Send the logging information from rewriter 'common_rules' to sink
         'responseSink' too:
@@ -1457,6 +1476,7 @@
         <str name="rewriter">common_rules</str>
         <str name="sink">responseSink</str>
       </lst>
+
       <!--
         Send the logging information from rewriter 'regex' to sink
         'responseSink' as well:
