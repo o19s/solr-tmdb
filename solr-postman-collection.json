@@ -1532,6 +1532,42 @@
 			"response": []
 		},
 		{
+			"name": "4-Add Querqy boost rule",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"class\": \"querqy.solr.rewriter.commonrules.CommonRulesRewriterFactory\",\n    \"config\": {\n        \"rules\" : \"action =>\\nUP(100): * genres:action\"\n    }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{solr_host}}/solr/tmdb/querqy/rewriter/common_rules?action=save",
+					"host": [
+						"{{solr_host}}"
+					],
+					"path": [
+						"solr",
+						"tmdb",
+						"querqy",
+						"rewriter",
+						"common_rules"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "save"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "6-LTR",
 			"request": {
 				"method": "POST",
