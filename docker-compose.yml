@@ -1,0 +1,14 @@
+version: '3'
+services:
+  solr:
+    container_name: solr
+    build: ./docker
+    ports:
+      - "8983:8983"
+    environment:
+      - SOLR_OPTS=-XX:-UseLargePages
+      - SOLR_HEAP=800m
+      - SOLR_HOME=/opt/mysolrhome
+      - INIT_SOLR_HOME=yes
+    volumes:
+      - ./solr_home:/opt/mysolrhome
