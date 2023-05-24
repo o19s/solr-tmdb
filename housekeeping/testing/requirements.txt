@@ -8,7 +8,7 @@ pyee==8.2.2
 pyppeteer==1.0.2
 python-dateutil==2.8.2
 pytz==2021.3
-requests==2.27.1
+requests==2.31.0
 six==1.16.0
 tqdm==4.62.3
 urllib3==1.26.8
