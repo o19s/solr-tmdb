@@ -1,7 +1,7 @@
 appdirs==1.4.4
 certifi==2023.7.22
 chardet==4.0.0
-idna==3.3
+idna==3.7
 numpy==1.22.1
 pandas==1.4.0
 pyee==8.2.2
